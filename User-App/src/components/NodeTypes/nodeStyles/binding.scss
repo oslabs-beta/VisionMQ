@@ -1,0 +1,9 @@
+.binding-label {
+    background-color: transparent;
+    font-size: 10px;
+    transition: all .1s ease 0s;
+}
+
+.binding-label:hover{
+    transform: scale(1.05, 1.05);
+}

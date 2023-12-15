@@ -1,0 +1,22 @@
+.queue-node {
+    height: 60px;
+    width: 30px;
+    border: 1px solid #363636;
+    // padding: 5px;
+    border-radius: 5%;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+
+    .queue-body {
+        font-size: 8px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+}

@@ -1,0 +1,115 @@
+/* #root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+} */
+
+* {
+  box-sizing: border-box;
+}
+
+#main {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+}
+
+#metrics {
+  border: 1px solid black;
+  height: 100vh;
+  width: 50vw;
+}
+
+#chart {
+  border: 1px solid black;
+  height: 100vh;
+  width: 50vw;
+  padding: 1.5%;
+
+  #flow-chart {
+    width: 100%;
+    height: 100%;
+    border: 1px solid black; 
+    border-radius: .7%;
+  }
+}
+
+.react-flow__handle {
+  border: 1px solid blue;
+}
+
+.react-flow__minimap {
+  background-color: blue;
+  // height: 50px;
+  // width: 50px;
+}
+
+// .react-flow 
+// The outermost container 
+// .react-flow__renderer 
+// The inner container 
+// .react-flow__zoompane 
+// Zoom & pan pane 
+// .react-flow__selectionpane 
+// Selection pane 
+// .react-flow__selection 
+// User selection 
+// .react-flow__edges 
+// The element containing all edges in the flow 
+// .react-flow__edge 
+// Applied to each Edge in the flow 
+// .react-flow__edge.selected 
+// Added to an Edge when selected 
+// .react-flow__edge.animated 
+// Added to an Edge when its animated prop is true 
+// .react-flow__edge-path 
+// The SVG <path />element of an Edge 
+// .react-flow__edge-text 
+// The SVG <text />element of an Edge label 
+// .react-flow__edge-textbg 
+// The SVG <text />element behind an Edge label 
+// .react-flow__connection 
+// Applied to the current connection line 
+// .react-flow__connection-path 
+// The SVG <path />of a connection line 
+// .react-flow__nodes 
+// The element containing all nodes in the flow 
+// .react-flow__node 
+// Applied to each Node in the flow 
+// .react-flow__node.selected 
+// Added to a Node when selected. 
+// .react-flow__node-default 
+// Added when Node type is "default"
+// .react-flow__node-input 
+// Added when Node type is "input"
+// .react-flow__node-output 
+// Added when Node type is "output"
+// .react-flow__nodesselection 
+// Nodes selection 
+// .react-flow__nodesselection-rect 
+// Nodes selection rect 
+// .react-flow__handle 
+// Applied to each <Handle />component 
+// .react-flow__handle-top 
+// Applied when a handle's Position is set to "top"
+//  .react-flow__handle-right 
+//  Applied when a handle's Position is set to "right"
+//  .react-flow__handle-bottom 
+//  Applied when a handle's Position is set to "bottom"
+//  .react-flow__handle-left 
+//  Applied when a handle's Position is set to "left"
+//  .react-flow__handle-connecting 
+//  Applied when a connection line is above a handle. 
+//  .react-flow__handle-valid 
+//  Applied when a connection line is above a handle and the connection is valid 
+//  .react-flow__background 
+//  Applied to the <Background />component 
+//  .react-flow__minimap 
+//  Applied to the <MiniMap />component 
+//  .react-flow__controls 
+//  Applied to the <Controls />component
+
+
+
+

@@ -1,14 +1,14 @@
 // import { useState } from 'react'
-import FlowChart from './components/FlowChart'
-import './App.css'
+import MainContainer from './components/MainContainer.tsx'
+import './App.scss'
 
 function App() {
   // const [count, setCount] = useState(0)
 
   return (
-    <>
-     <FlowChart />
-    </>
+    <div id='app'>
+     <MainContainer />
+    </div>
   )
 }
 

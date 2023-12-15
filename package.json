@@ -1,5 +1,8 @@
 {
   "dependencies": {
     "reactflow": "^11.10.1"
+  },
+  "devDependencies": {
+    "sass": "^1.69.5"
   }
 }
