@@ -1,19 +1,19 @@
-import { useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { Handle, Position } from 'reactflow';
  
  
-function QueueNode({ data }) {
+function QueueNode() {
   const onChange = useCallback((evt) => {
     console.log(evt.target.value);
   }, []);
  
   return (
     <div className='queue-node'>
-      <Handle type="target" position={Position.Top} />
+      <Handle type="target" position={Position.Right} />
       <div className='queue-body'>
         <p>Queue</p>
       </div>
-      <Handle type="source" position={Position.Bottom} id="a" />
+      <Handle type="source" position={Position.Left} id="a" />
     </div>
   );
 }

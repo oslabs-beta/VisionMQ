@@ -1,0 +1,33 @@
+.service-node {
+    // height: 100%;
+    // width: 100px;
+    border: 1px solid #000000;
+    padding: 0px 10px;
+    border-radius: 3px;
+    border-width: 1px;
+    // background: white;
+    // display: flex;
+    // flex-direction: column;
+    // justify-content: center;
+    // align-items: center;
+
+
+    .service-body {
+        // height: 100%;
+        // display: flex;
+        // flex-direction: column;
+        // justify-content: center;
+        // align-items: center;
+    }
+
+}
+
+// .exchange-node:hover{
+//     transform: scale(1.05, 1.05);
+// }
+
+.service-node label {
+    display: block;
+    color: #777;
+    font-size: 12px;
+}

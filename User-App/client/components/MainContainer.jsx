@@ -1,4 +1,4 @@
-// import { useState } from 'react'
+import React, { useState } from 'react'
 import FlowChart from './FlowChart'
 import Metrics from './Metrics'
 
@@ -8,9 +8,7 @@ function MainContainer() {
   return (
     <div id='main'>
       <Metrics />
-      <div id='chart'>
         <FlowChart />
-      </div>
     </div>
   )
 }
