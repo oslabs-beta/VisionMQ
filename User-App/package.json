@@ -1,0 +1,52 @@
+{
+  "name": "visionmq",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "start": "NODE_ENV=production nodemon server/server.js",
+    "build": "NODE_ENV=production webpack",
+    "dev": "NODE_ENV=development webpack serve & NODE_ENV=development nodemon server/server.js",
+    "test": "test"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "build",
+      "client"
+    ]
+  },
+  "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "express": "^4.18.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "reactflow": "^11.10.1",
+    "styled-components": "^6.1.1",
+    "ts-node": "^10.9.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.16.7",
+    "@babel/preset-env": "^7.16.7",
+    "@babel/preset-react": "^7.16.7",
+    "@types/express": "^4.17.13",
+    "@types/node": "^17.0.8",
+    "@types/react": "^18.2.37",
+    "@types/react-dom": "^18.2.15",
+    "@typescript-eslint/eslint-plugin": "^6.10.0",
+    "@typescript-eslint/parser": "^6.10.0",
+    "babel-loader": "^8.2.3",
+    "copy-webpack-plugin": "^10.2.0",
+    "css-loader": "^6.5.1",
+    "eslint": "^8.53.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.4",
+    "html-webpack-plugin": "^5.5.0",
+    "nodemon": "^2.0.15",
+    "sass-loader": "^13.3.2",
+    "style-loader": "^3.3.3",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.2.2",
+    "webpack": "^5.65.0",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.7.2"
+  }
+}

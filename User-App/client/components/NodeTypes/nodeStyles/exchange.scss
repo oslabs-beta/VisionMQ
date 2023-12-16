@@ -1,0 +1,33 @@
+.exchange-node {
+    height: 100%;
+    width: 100px;
+    border: 1px solid #363636;
+    // padding: 5px;
+    border-radius: 50%;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    
+    .exchange-body {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+}
+
+// .exchange-node:hover{
+//     transform: scale(1.05, 1.05);
+// }
+
+.exchange-node label {
+    display: block;
+    color: #777;
+    font-size: 12px;
+}
+
