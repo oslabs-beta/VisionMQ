@@ -8,6 +8,7 @@ function Metrics() {
   return (
     <div id='metrics'>
         <ul>
+            <li>When you click a node, it hides any nodes that that nodes edges aren't touching</li>
             <li>Figure out how to make the minimap smaller</li>
             <li>Make boxes on this side for metrics</li>
             <li>Change handle orientation if possible</li>

@@ -35,6 +35,7 @@ const FlowChart = () => {
 
 
   const [num, setNum] = useState(5)
+  const [namesExample, setNames] = useState(['App', 'Inv', 'Auth', 'Bill', 'Notif'])
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
@@ -60,7 +61,6 @@ const FlowChart = () => {
     const n = num;
     const radius = 400;
 
-    const namesExample = ['App', 'Inv', 'Auth', 'Bill', 'Notif']
 
     for(let i = 0; i < n; i++){
       // console.log(i)
@@ -92,17 +92,25 @@ const FlowChart = () => {
     setNodes([...microservices, ...queues, exchange ])
     setEdges([...bindings])
 
-  }, [num])
+  }, [num, namesExample])
 
   const changeNum = () => {
     const newNum = document.querySelector('#num-changer')
+    const newName = document.querySelector('#service')
+    if(newName.value) {
+      const newNames = namesExample
+      console.log(newName)
+      setNames([...namesExample, newName.value])
+      setNum(num + 1)
+    }
     if(newNum.value) setNum(newNum.value)
   }
 
  
   return (
     <div id='chart'>
-        <input id='num-changer'placeholder='Enter Num'></input>
+        <input id='num-changer'placeholder='Node Count'></input>
+        <input id='service' placeholder='Service Name'></input>
         <button onClick={changeNum}>Load</button>
       <div id='flow-chart'>
         <ReactFlow
