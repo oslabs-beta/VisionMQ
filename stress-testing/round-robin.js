@@ -4,7 +4,7 @@ The test is a Class that has the following methods: turnOnConsumer, prepTests, r
 
 To create a new instance of the RoundRobin class, you will need to provide the following: rabbitAddress, exchanges, bindings
   * rabbitAddress is the URL or URL in which the test can connect to the user's RabbitMQ's enviornmnet.
-  * exhanges is an array containing objects with information on the exchanges
+  * exchanges is an array containing objects with information on the exchanges
   * bindings is an array containing objects with the information on all of the bindings 
 
 examples: 
@@ -154,7 +154,7 @@ class roundRobinTest {
     if (this.readyToTest === false) return;
   }
 
-  //this will take a snapshot of the current testing enviornment 
+  //this will take a snapshot of the current testing environment 
   takeSnapShot () {
     this.snapShots.push({
       rabbitAddress: this.rabbitAddress,
@@ -165,7 +165,7 @@ class roundRobinTest {
     });
   } 
 
-  //this method will allow you to completely update your Round Robin test enviornment 
+  //this method will allow you to completely update your Round Robin test environment 
   updateRoundRobinSuite (rabbitAddress, exchanges, bindings) {
     this.rabbitAddress = rabbitAddress;
     this.exchanges = {}
