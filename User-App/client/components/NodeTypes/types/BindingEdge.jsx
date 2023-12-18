@@ -12,7 +12,7 @@ import {
 export default function BindingEdge({ id, sourceX, sourceY, targetX, targetY, sourcePosition,
   targetPosition,
  data }) {
-  console.log(data.name, data.offset)
+  // console.log(data.name, data.offset)
   const { setEdges } = useReactFlow();
   const [edgePath, labelX, labelY] = getBezierPath({
     sourceX,

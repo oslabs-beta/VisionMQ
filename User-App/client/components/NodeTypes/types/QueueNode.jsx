@@ -15,16 +15,18 @@ function QueueNode({data}) {
     handles.push(<Handle type="target" style={{left: i*fraction - fraction/2 }} position={Position.Bottom} id={`${i}`} />)
   }
 
-  const isolate = () => {
-
-  }
-
   const preview = () => {
     
   }
+
+  const nothing = () => {
+
+  }
+
+  // console.log(data)
  
   return (
-    <div className='queue-node' onClick={isolate} onMouseEnter={preview}>
+    <div className='queue-node' id={data.name} onClick={() => data.isolate(data.name)} onMouseEnter={preview}>
       {handles}
       <div className='queue-body'>
         <p className='queue-name'>{data.name}</p>

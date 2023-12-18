@@ -58,9 +58,14 @@ const FlowChart = () => {
 
   const [loaded, setLoaded] = useState(false);
   const [num, setNum] = useState(5)
-  const [namesExample, setNames] = useState(['App', 'Inv', 'Auth', 'Bill', 'Notif'])
+  const [focus, setFocus] = useState('all')
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+
+  const isolate = (name) => {
+    console.log(name)
+    focus === 'all' ? setFocus(name) : setFocus('all') 
+  }
 
   let data;
   const queueCache = {}
@@ -113,14 +118,18 @@ const FlowChart = () => {
         const bindingCount = {}
   
         data.bindings.forEach((el, i) => {
-          bindingCount[el.destination] = bindingCount[el.destination] ? bindingCount[el.destination] + 1 : 1
+          console.log(el.destination, focus, el.destination == focus)
+          if(focus === 'all' || el.destination == focus){
+            console.log('inside')
+            bindingCount[el.destination] = bindingCount[el.destination] ? bindingCount[el.destination] + 1 : 1
           const myId = `${el.source}:${el.routing_key}:${el.destination}` //exchange:binding:queue
-          console.log(myId, bindingCount[el.destination])
+          // console.log(myId, bindingCount[el.destination])
           bindings.push({ id: myId, type: 'binding', markerEnd: {
           type: MarkerType.ArrowClosed,
           color: '#FF0072',
         }, target: `${el.destination}`, targetHandle: `${bindingCount[el.destination]}`, source: `${el.source}`, data:{name: `${el.routing_key}`, offset: bindingCount[el.destination] } })
-        })
+        }
+      })
 
         //First, we parse the queues and create nodes for each, paired and binded to a 'Service' consumer (for our demo only, usually we wouldn't know the name of consumer just its channel)
         data.queues.forEach((el, i) => {
@@ -128,17 +137,15 @@ const FlowChart = () => {
           const xCoor = Math.floor(radius * Math.cos(deg)*1.2);
           const yCoor = Math.floor(radius * Math.sin(deg)*1.2);
           
-          queues.push({ id: `${el.name}`, type: 'queue', position: { x: xCoor*.7 , y: yCoor*.7 }, data: { name: `${el.name}`, offset: bindingCount[el.name]} })
+          if(focus === 'all' || el.name == focus){
+            queues.push({ id: `${el.name}`, type: 'queue', position: { x: xCoor*.7 , y: yCoor*.7 }, data: { name: `${el.name}`, offset: bindingCount[el.name], isolate: isolate }})
           microservices.push({ id: `${i}`, type: 'microservice', position: { x: xCoor , y: yCoor }, data: { name: `${el.name.slice(0, -5)}`}})
           
           bindings.push({ id: `${el.name}->${i}`, type: 'channel', markerEnd: {
             type: MarkerType.ArrowClosed,
             color: '#FF0072',
           }, target: `${i}`, source: `${el.name}` })
-          //   bindings.push({ id: `${i}->ex`, type: 'channel', markerEnd: {
-          //   type: MarkerType.ArrowClosed,
-          //   color: '#FF0072',
-          // }, target: `ex`, source: `${i}` })
+        }
         })
           
           //for now this is only a single exchange, will have to congifure position
@@ -148,12 +155,11 @@ const FlowChart = () => {
           exchanges.push({ id: `${ex.name}`, type: 'exchange', position: { x: 0, y: 0 }, data: { name: `${ex.name}` } })
         })
 
-          //setData(data)
           setNodes([...microservices, ...queues, ...exchanges ])
-           setEdges([...bindings])
+          setEdges([...bindings])
         })
 
-    }, [num])
+    }, [focus])
    
 
   const changeNum = () => {

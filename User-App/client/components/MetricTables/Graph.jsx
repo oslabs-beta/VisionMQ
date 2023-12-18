@@ -3,7 +3,7 @@ function Graph() {
   // const [count, setCount] = useState(0)
 
   return (
-    <div class='graph'>
+    <div className='graph'>
         <p>hi</p>
     </div>
   )
