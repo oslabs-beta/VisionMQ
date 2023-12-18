@@ -30,10 +30,33 @@
 
   #header {
     align-self: flex-start;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 1.5%;
+    
+    #rmqlogo {
+      width: 3vw;
+      height: auto;
+    }
+
+    #collab {
+      width: 2vw;
+      height: auto;
+      margin-left: 1vw;
+      margin-right: 1vw;
+    }
+
+    #vmqlogo {
+      width: 3vw;
+        height: auto;
+        // margin-right: 3vw;
+    }
   }
   
   #top-container {
-    border: 1px solid rgb(223, 192, 152);
+    border: 1px solid #ff6600;
     border-radius: 3px;
 
       height: 50%;
@@ -74,7 +97,7 @@
   #flow-chart {
     width: 100%;
     height: 100%;
-    border: 1px solid rgb(223, 192, 152); 
+    border: 1px solid #ff6600; 
     border-radius: .7%;
   }
 }

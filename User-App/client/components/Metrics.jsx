@@ -3,6 +3,9 @@ import Stats from "./MetricTables/Stats"
 import PubSub from "./MetricTables/PubSub"
 import TopContainer from './MetricTables/TopContainer'
 import Graph from './MetricTables/Graph'
+import rmqLogo from '../../assets/rmqlogo.png'
+import collab from '../../assets/collab.png'
+import vmqLogo from '../../assets/visionlogo.png'
 
 function Metrics() {
   // const [count, setCount] = useState(0)
@@ -10,7 +13,9 @@ function Metrics() {
   return (
     <div id='metrics'>
       <div id='header'>
-        VisionMQ x RabbitMQ
+        <img id='rmqlogo' src={vmqLogo} />
+        <img id='collab' src={collab} />
+        <img id='vmqlogo' src={rmqLogo} />
       </div>
         <TopContainer />
         {/* <ul>
