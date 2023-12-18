@@ -1,7 +1,7 @@
 const path = require('path');
 const express = require('express');
 const app = express();
-const PORT = 3000;
+const PORT = 3005;
 const cookieParser = require('cookie-parser');
 
 const promController = require('./controllers/promController');
@@ -46,6 +46,6 @@ app.use((err, req, res, next) => {
 });
 
 //connects the server to the port
-app.listen(3000, async () => {
+app.listen(3005, async () => {
   console.log(`Server listening on port ${PORT}`);
 });
