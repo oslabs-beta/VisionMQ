@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "amqplib": "^0.10.3",
     "reactflow": "^11.10.1"
   },
   "devDependencies": {
