@@ -10,11 +10,11 @@ function ExchangeNode() {
  
   return (
     <div className='exchange-node'>
-      <Handle type="target" position={Position.Top} />
+      <Handle style= { {top: '50%', visibility: 'hidden'} } type="target" position={Position.Top} />
       <div className='exchange-body'>
         <p>Exchange</p>
       </div>
-      <Handle type="source" position={Position.Top} id="a" />
+      <Handle style= { {top: '50%', visibility: 'hidden'} } type="source" position={Position.Top} id="a" />
     </div>
   );
 }

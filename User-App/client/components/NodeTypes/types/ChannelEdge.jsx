@@ -9,11 +9,12 @@ import {
 } from 'reactflow';
 // import styled from 'styled-components';
 
-export default function BindingEdge({ id, sourceX, sourceY, targetX, targetY, sourcePosition,
+export default function ChannelEdge({ id, sourceX, sourceY, targetX, targetY, sourcePosition,
   targetPosition,
- data }) {
+  markerEnd,
+  data}) {
   const { setEdges } = useReactFlow();
-  const [edgePath, labelX, labelY] = getBezierPath({
+  const [edgePath, labelX, labelY] = getSmoothStepPath({
     sourceX,
     sourceY,
     targetX,
@@ -23,7 +24,6 @@ export default function BindingEdge({ id, sourceX, sourceY, targetX, targetY, so
   });
   //nodrag nopan for className that doesnt move on click
 
-  const bindingName = data?.name || 'binding'
   const intensity = 10;
 
   // const [intensity, setIntensity] = useState(200)
@@ -36,7 +36,7 @@ export default function BindingEdge({ id, sourceX, sourceY, targetX, targetY, so
 
   return (
     <>
-      <BaseEdge id={id} path={edgePath} style={
+      <BaseEdge id={id} path={edgePath} markerEnd={markerEnd} style={
         {
             stroke: `rgba(255, ${intensity}, 0, 0.5)`, strokeWidth: "2"
           }}/>
@@ -52,7 +52,6 @@ export default function BindingEdge({ id, sourceX, sourceY, targetX, targetY, so
         //     setEdges((es) => es.filter((e) => e.id !== id));
         //   }}
         >
-          {bindingName}
         </div>
       </EdgeLabelRenderer>
     </>

@@ -2,18 +2,18 @@ import React, { useCallback } from 'react';
 import { Handle, Position } from 'reactflow';
  
  
-function QueueNode() {
+function QueueNode({data}) {
   const onChange = useCallback((evt) => {
     console.log(evt.target.value);
   }, []);
  
   return (
     <div className='queue-node'>
-      <Handle type="target" position={Position.Right} />
+      <Handle type="target" position={Position.Top} />
       <div className='queue-body'>
-        <p>Queue</p>
+        <p className='queue-name'>{data.name}</p>
       </div>
-      <Handle type="source" position={Position.Left} id="a" />
+      <Handle type="source" position={Position.Top} id="a" />
     </div>
   );
 }
