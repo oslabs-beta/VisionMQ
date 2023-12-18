@@ -1,6 +1,6 @@
 .queue-node {
-    height: 60px;
-    width: 30px;
+    height: 30px;
+    width: 100px;
     border: 1px solid #363636;
     // padding: 5px;
     border-radius: 5%;
@@ -12,7 +12,7 @@
 
 
     .queue-body {
-        font-size: 8px;
+        font-size: .8em;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -20,7 +20,7 @@
     }
 
     .queue-name {
-        transform: rotate(.25turn);
+        // transform: rotate(.25turn);
     }
 
 }

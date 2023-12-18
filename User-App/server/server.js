@@ -4,6 +4,7 @@ const app = express();
 const PORT = 3000;
 const cookieParser = require('cookie-parser');
 
+const promController = require('./controllers/promController');
 
 // const corsOptions = {
 //   origin: 'http://localhost:8080',
@@ -17,8 +18,13 @@ app.use(cookieParser());
 //serves files for the webpack
 app.use('/assets', express.static(path.join(__dirname, './client/assets')));
 
+app.get('/load', promController.getDefinitions, (req, res) => {
+  const definitions = res.locals.definitions;
+  res.status(200).send(definitions);
+});
+
 app.use('/', async (req, res) => {
-  // await receiveMsg();
+  console.log('Sending root');
   res.status(200).sendFile(path.join(__dirname, '../index.html'));
 });
 

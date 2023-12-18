@@ -51,6 +51,11 @@ module.exports = {
     compress: true,
     proxy: {
       '/': 'http://localhost:3000',
+      '/load': 'http://localhost:3000',
+      // '/api/*': {
+      //   target: 'http://localhost:15672/',
+      //   auth: 'guest:guest',
+      // },
     },
   },
   plugins: [
