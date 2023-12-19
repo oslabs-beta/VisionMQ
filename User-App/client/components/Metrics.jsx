@@ -61,6 +61,7 @@ function Metrics({ switcher }) {
           </div>
           {/* <ul>
               <li>Hide binding labels unless you hover over the queue, and display that nodes data</li>
+              <li>Make page refresh and adjust other nodes when new ones are added</li>
               <li>Make boxes on this side for metrics</li>
               <li>eh Possibly add secondary view between services not using exhcnage</li>
               <li>DONE When you click a node, it hides any nodes that that nodes edges aren't touching</li>
