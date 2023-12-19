@@ -1,4 +1,7 @@
 import React, { useState } from 'react'
+import Stats from "./Stats"
+import PubSub from "./PubSub"
+
 function TopContainer({ data }) {
   // const [count, setCount] = useState(0)
 
@@ -8,8 +11,12 @@ function TopContainer({ data }) {
         <span>{`${data.user} • vhost: '${data.vhost}'`}</span>
         <span>{`${data.product_name}: ${data.product_version}`}</span>
       </div>
-      <div id='top-divider'></div>
-      <div id='rabbit-elements'></div>
+      <div className='divider'></div>
+      <div id='rabbit-elements'>
+        <PubSub queues={data.queues} bindings={data.bindings} />
+        <div className='vert-divider'></div>
+        <Stats />
+      </div>
     </div>
   )
 }

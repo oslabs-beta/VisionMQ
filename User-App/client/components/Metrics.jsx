@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import Stats from "./MetricTables/Stats"
-import PubSub from "./MetricTables/PubSub"
 import TopContainer from './MetricTables/TopContainer'
 import Graph from './MetricTables/Graph'
 import { Routes, Route } from 'react-router-dom'
@@ -11,6 +9,8 @@ function Metrics({ switcher }) {
     product_version: '',
     user: '',
     vhost: '',
+    queues: [],
+    bindings: [],
   })
 
 
@@ -41,6 +41,8 @@ function Metrics({ switcher }) {
           product_version: res.product_version,
           user: res.users[0].name,
           vhost: res.vhosts[0].name,
+          queues: res.queues,
+          bindings: res.bindings
         })
         })
 
@@ -67,9 +69,6 @@ function Metrics({ switcher }) {
               <li>DONE When you click a node, it hides any nodes that that nodes edges aren't touching</li>
               <br></br>
             </ul> */}
-          
-          {/* <PubSub />
-          <Stats /> */}
         </div>
     </div>
   )

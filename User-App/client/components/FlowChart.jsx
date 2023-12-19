@@ -112,25 +112,25 @@ const FlowChart = () => {
         const microservices = [];
         const exchanges = [];
         const bindings = [];
-        const n = num;
-        const radius = 400;
         
         const bindingCount = {}
-  
+        
         data.bindings.forEach((el, i) => {
-          console.log(el.destination, focus, el.destination == focus)
+          // console.log(el.destination, focus, el.destination == focus)
           if(focus === 'all' || el.destination == focus){
-            console.log('inside')
+            // console.log('inside')
             bindingCount[el.destination] = bindingCount[el.destination] ? bindingCount[el.destination] + 1 : 1
-          const myId = `${el.source}:${el.routing_key}:${el.destination}` //exchange:binding:queue
-          // console.log(myId, bindingCount[el.destination])
-          bindings.push({ id: myId, type: 'binding', markerEnd: {
-          type: MarkerType.ArrowClosed,
-          color: '#FF6600',
-        }, target: `${el.destination}`, targetHandle: `${bindingCount[el.destination]}`, source: `${el.source}`, data:{name: `${el.routing_key}`, offset: bindingCount[el.destination] } })
-        }
-      })
-
+            const myId = `${el.source}:${el.routing_key}:${el.destination}` //exchange:binding:queue
+            // console.log(myId, bindingCount[el.destination])
+            bindings.push({ id: myId, type: 'binding', markerEnd: {
+              type: MarkerType.ArrowClosed,
+              color: '#FF6600',
+            }, target: `${el.destination}`, targetHandle: `${bindingCount[el.destination]}`, source: `${el.source}`, data:{name: `${el.routing_key}`, offset: bindingCount[el.destination] } })
+          }
+        })
+        
+        const n = data.queues.length;
+        const radius = 400;
         //First, we parse the queues and create nodes for each, paired and binded to a 'Service' consumer (for our demo only, usually we wouldn't know the name of consumer just its channel)
         data.queues.forEach((el, i) => {
           const deg = (((2*Math.PI)/n)*i) - Math.PI/2
@@ -139,7 +139,7 @@ const FlowChart = () => {
           
           if(focus === 'all' || el.name == focus){
             queues.push({ id: `${el.name}`, type: 'queue', position: { x: xCoor*.7 , y: yCoor*.7 }, data: { name: `${el.name}`, offset: bindingCount[el.name], isolate: isolate }})
-          microservices.push({ id: `${i}`, type: 'microservice', position: { x: xCoor , y: yCoor }, data: { name: `${el.name.slice(0, -5)}`}})
+          microservices.push({ id: `${i}`, type: 'microservice', position: { x: xCoor+(30) , y: yCoor }, data: { name: `${el.name.slice(0, -5)}`}})
           
           bindings.push({ id: `${el.name}->${i}`, type: 'channel', markerEnd: {
             type: MarkerType.ArrowClosed,
@@ -152,7 +152,7 @@ const FlowChart = () => {
           //for additional exchanges so that they don't overlap and then that ex's
           //respective services will have a circle with a different center
         data.exchanges.forEach((ex) => {
-          exchanges.push({ id: `${ex.name}`, type: 'exchange', position: { x: 0, y: 0 }, data: { name: `${ex.name}` } })
+          exchanges.push({ id: `${ex.name}`, type: 'exchange', position: { x: 0, y: -50 }, data: { name: `${ex.name}` } })
         })
 
           setNodes([...microservices, ...queues, ...exchanges ])

@@ -4,7 +4,10 @@ function Stats() {
 
   return (
     <div id='stats'>
-
+      <div className="statistic"></div>
+      <div className="statistic"></div>
+      <div className="statistic"></div>
+      <div className="statistic"></div>
     </div>
   )
 }
