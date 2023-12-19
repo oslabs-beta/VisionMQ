@@ -19,7 +19,7 @@ function Configuration() {
           <a href='https://github.com/oslabs-beta/VisionMQ'><img id='vmqlogo' src={vmqLogo} /></a>
           <img id='collab' src={collab} />
           <a href='https://rabbitmq.com/'><img id='rmqlogo' src={rmqLogo} /></a>
-          <button onClick={changeSwitcher} className='router-links'>RabbitMQ</button>
+          <button onClick={changeSwitcher} className='router-links'>Toggle</button>
         </div>
         <Metrics switcher={switcher}/>
     </div>

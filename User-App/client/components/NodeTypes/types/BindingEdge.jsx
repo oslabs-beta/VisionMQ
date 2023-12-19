@@ -11,6 +11,7 @@ import {
 
 export default function BindingEdge({ id, sourceX, sourceY, targetX, targetY, sourcePosition,
   targetPosition,
+  markerEnd,
  data }) {
   // console.log(data.name, data.offset)
   const { setEdges } = useReactFlow();
@@ -39,7 +40,7 @@ export default function BindingEdge({ id, sourceX, sourceY, targetX, targetY, so
 
   return (
     <>
-      <BaseEdge id={id} path={edgePath} style={
+      <BaseEdge id={id} path={edgePath} markerEnd={markerEnd} style={
         {
             stroke: `rgba(255, ${intensity}, 0, ${opacity})`, strokeWidth: "2"
           }} />

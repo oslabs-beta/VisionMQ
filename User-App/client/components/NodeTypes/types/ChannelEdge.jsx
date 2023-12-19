@@ -14,7 +14,7 @@ export default function ChannelEdge({ id, sourceX, sourceY, targetX, targetY, so
   markerEnd,
   data}) {
   const { setEdges } = useReactFlow();
-  const [edgePath, labelX, labelY] = getBezierPath({
+  const [edgePath, labelX, labelY] = getSmoothStepPath({
     sourceX,
     sourceY,
     targetX,
