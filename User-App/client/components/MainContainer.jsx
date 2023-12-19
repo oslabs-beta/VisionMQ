@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import FlowChart from './FlowChart'
-import Metrics from './Metrics'
+import Configuration from './Configuration'
 
 function MainContainer() {
   // const [count, setCount] = useState(0)
 
   return (
     <div id='main'>
-      <Metrics />
-        <FlowChart />
+      <Configuration />
+      <FlowChart />
     </div>
   )
 }

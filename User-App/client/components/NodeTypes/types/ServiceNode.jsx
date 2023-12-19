@@ -14,7 +14,7 @@ function ServiceNode({data}) {
       <div className='service-body'>
         <p>{data.name}</p>
       </div>
-      <Handle id='out' type="source" position={Position.Bottom} />
+      {/* <Handle id='out' type="source" position={Position.Bottom} /> */}
     </div>
   );
 }

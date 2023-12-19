@@ -1,9 +1,10 @@
 const path = require('path');
 const express = require('express');
 const app = express();
-const PORT = 3000;
+const PORT = 3005;
 const cookieParser = require('cookie-parser');
 
+const promController = require('./controllers/promController');
 
 // const corsOptions = {
 //   origin: 'http://localhost:8080',
@@ -17,8 +18,13 @@ app.use(cookieParser());
 //serves files for the webpack
 app.use('/assets', express.static(path.join(__dirname, './client/assets')));
 
+app.get('/load', promController.getDefinitions, (req, res) => {
+  const definitions = res.locals.definitions;
+  res.status(200).send(definitions);
+});
+
 app.use('/', async (req, res) => {
-  // await receiveMsg();
+  console.log('Sending root');
   res.status(200).sendFile(path.join(__dirname, '../index.html'));
 });
 
@@ -40,6 +46,6 @@ app.use((err, req, res, next) => {
 });
 
 //connects the server to the port
-app.listen(3000, async () => {
+app.listen(3005, async () => {
   console.log(`Server listening on port ${PORT}`);
 });

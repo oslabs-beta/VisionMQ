@@ -7,41 +7,175 @@
 
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 #main {
   display: flex;
   height: 100vh;
   width: 100vw;
+  padding: 1.5%;
 }
 
-#metrics {
-  border: 1px solid black;
-  height: 100vh;
-  width: 50vw;
+#configuration {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  
+  
+  #header {
+    // border: 1px solid black;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 1.5%;
+    
+    #rmqlogo, #vmqlogo {
+      width: 3vw;
+      height: auto;
+    }
+  
+    #collab {
+      width: 2vw;
+      height: auto;
+      margin-left: .9vw;
+      margin-right: 1vw;
+    }
+
+    .router-links {
+      // border: 1px solid black;
+      margin-left: 65%;
+      justify-self: flex-end;
+      border: 1px solid white;
+      color: white;
+      border-radius: 3px;
+      padding: 1.5%;
+      background-color: rgb(255, 102, 0);
+    }
+
+    .router-links:hover {
+      background-color: #ff8f45;
+    }
+
+    .router-links:active {
+      background-color: #ea5e01;
+    }
+
+  }
+
+  #mgmt-api {
+    // border: 1px solid black;
+    position: fixed;
+    top: 70vh;
+    // height: 87vh;
+    //   width: 100%;
+    //   overflow: scroll;
+    padding: 1.5%;
+      height: 100vh;
+        width: 100%;
+        transform-origin: top ;
+        transform: scale(50%);
+      zoom: 80%;
+  }
+
+  #metrics {
+    // border: 1px solid black;
+    height: 87vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    // padding: 1.5%;
+  
+    #top-container {
+      border: 1px solid #ff6600;
+      border-radius: 3px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+  
+        height: 50%;
+        width: 100%;
+        
+        #user-info {
+          height: 10%;
+          width: 100%;
+          font-size: .75rem;
+          color: #ff6600;
+          background-color: transparent;
+          padding: 0 10px;
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        #top-divider {
+          width: 98%;
+          border-bottom: 1px solid #ff6600a7;
+        }
+
+        #rabbit-elements {
+          height: 90%;
+        }
+      }
+  
+      #bottom-grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 1.5%;
+        // border: 1px solid rgb(223, 192, 152);
+          // padding: 1.5%;
+          border-radius: 3px;
+        
+          height: 50%;
+          width: 100%;
+  
+          .graph {
+            // border: 1px solid rgb(223, 192, 152);
+            border-radius: 3px;
+            background-color: black;
+            // height: 50%;
+            // width: auto;
+            aspect-ratio: 16/9;
+          }
+      }
+    }
+      
+    
 }
+
 
 #chart {
-  border: 1px solid black;
-  height: 100vh;
-  width: 50vw;
-  padding: 1.5%;
+  // border: 1px solid black;
+  height: 100%;
+  width: 100%;
+  margin-left: 1.5%;
+  // padding: 1.5%;
 
   #flow-chart {
     width: 100%;
     height: 100%;
-    border: 1px solid black; 
+    border: 1px solid #ff6600; 
     border-radius: .7%;
-  }
+  } 
 }
 
 .react-flow__handle {
-  background-color: transparent;
-  border: none
+  background-color: white;
+  border: 1px solid black;
 }
 
 .react-flow__minimap {
-  background-color: blue;
+  // background-color: orange;
+  transform: scale(.5, .5) translate(50%, 50%)
   // height: 50px;
   // width: 50px;
 }
