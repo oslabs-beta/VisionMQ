@@ -30,25 +30,30 @@
   #header {
     // border: 1px solid black;
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
     margin-bottom: 1.5%;
     
-    #rmqlogo, #vmqlogo {
-      width: 3vw;
-      height: auto;
+    #logos {
+      display: flex;
+      align-items: center;
+      #rmqlogo, #vmqlogo {
+        width: 3vw;
+        height: auto;
+      }
+    
+      #collab {
+        width: 2vw;
+        height: auto;
+        margin-left: .9vw;
+        margin-right: 1vw;
+      }
     }
-  
-    #collab {
-      width: 2vw;
-      height: auto;
-      margin-left: .9vw;
-      margin-right: 1vw;
-    }
+    
 
     .router-links {
       // border: 1px solid black;
-      margin-left: 65%;
+      // margin-left: 65%;
       justify-self: flex-end;
       border: 1px solid white;
       color: white;

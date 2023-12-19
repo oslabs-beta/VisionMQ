@@ -16,11 +16,13 @@ function Configuration() {
   return (
     <div id='configuration'>
         <div id='header'>
-          <a href='https://github.com/oslabs-beta/VisionMQ'><img id='vmqlogo' src={vmqLogo} /></a>
-          <img id='collab' src={collab} />
-          <a href='https://rabbitmq.com/'><img id='rmqlogo' src={rmqLogo} /></a>
+          <div id='logos'>
+            <a href='https://github.com/oslabs-beta/VisionMQ'><img id='vmqlogo' src={vmqLogo} /></a>
+            <img id='collab' src={collab} />
+            <a href='https://rabbitmq.com/'><img id='rmqlogo' src={rmqLogo} /></a>
+          </div>
           <button onClick={changeSwitcher} className='router-links'>Toggle</button>
-        </div>
+          </div>
         <Metrics switcher={switcher}/>
     </div>
   )
