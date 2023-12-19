@@ -3,37 +3,37 @@ import Stats from "./MetricTables/Stats"
 import PubSub from "./MetricTables/PubSub"
 import TopContainer from './MetricTables/TopContainer'
 import Graph from './MetricTables/Graph'
-import rmqLogo from '../../assets/rmqlogo.png'
-import collab from '../../assets/collab.png'
-import vmqLogo from '../../assets/visionlogo.png'
+import { Routes, Route } from 'react-router-dom'
 
-function Metrics() {
+function Metrics({ switcher }) {
   // const [count, setCount] = useState(0)
+  
+
 
   return (
-    <div id='metrics'>
-      <div id='header'>
-        <img id='rmqlogo' src={vmqLogo} />
-        <img id='collab' src={collab} />
-        <img id='vmqlogo' src={rmqLogo} />
-      </div>
+    <div id='left-side'>
+      <div id='metrics'>
         <TopContainer />
-        {/* <ul>
-            <li>When you click a node, it hides any nodes that that nodes edges aren't touching</li>
-            <li>Possibly add secondary view between services not using exhcnage</li>
-            <li>Make boxes on this side for metrics</li>
-            <br></br>
-          </ul> */}
-        <div id='bottom-grid'>
-          <Graph />
-          <Graph />
-          <Graph />
-          <Graph />
-          <Graph />
-          <Graph />
+          <iframe id='mgmt-api' style={{visibility: `${!switcher ? 'hidden' : 'visible'}`}} src="http://localhost:15672/#/" frameborder="0"></iframe>
+          <div id='bottom-grid' style={{visibility: `${switcher ? 'hidden' : 'visible'}`}}>
+            <Graph />
+            <Graph />
+            <Graph />
+            <Graph />
+            <Graph />
+            <Graph />
+          </div>
+          <ul>
+              <li>Hide binding labels unless you hover over the queue</li>
+              <li>Possibly add secondary view between services not using exhcnage</li>
+              <li>Make boxes on this side for metrics</li>
+              <li>DONE When you click a node, it hides any nodes that that nodes edges aren't touching</li>
+              <br></br>
+            </ul>
+          
+          {/* <PubSub />
+          <Stats /> */}
         </div>
-        {/* <PubSub />
-        <Stats /> */}
     </div>
   )
 }

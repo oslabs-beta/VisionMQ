@@ -126,7 +126,7 @@ const FlowChart = () => {
           // console.log(myId, bindingCount[el.destination])
           bindings.push({ id: myId, type: 'binding', markerEnd: {
           type: MarkerType.ArrowClosed,
-          color: '#FF0072',
+          color: '#FF6600',
         }, target: `${el.destination}`, targetHandle: `${bindingCount[el.destination]}`, source: `${el.source}`, data:{name: `${el.routing_key}`, offset: bindingCount[el.destination] } })
         }
       })
@@ -143,7 +143,7 @@ const FlowChart = () => {
           
           bindings.push({ id: `${el.name}->${i}`, type: 'channel', markerEnd: {
             type: MarkerType.ArrowClosed,
-            color: '#FF0072',
+            color: '#FF6600',
           }, target: `${i}`, source: `${el.name}` })
         }
         })

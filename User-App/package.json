@@ -19,6 +19,7 @@
     "express": "^4.18.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^6.21.0",
     "reactflow": "^11.10.1",
     "styled-components": "^6.1.1",
     "ts-node": "^10.9.1"

@@ -18,29 +18,26 @@
   padding: 1.5%;
 }
 
-#metrics {
-  // border: 1px solid black;
+#configuration {
   height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  // padding: 1.5%;
-
+  justify-content: center;
+  
+  
   #header {
-    align-self: flex-start;
-
+    // border: 1px solid black;
     display: flex;
     justify-content: flex-start;
     align-items: center;
     margin-bottom: 1.5%;
     
-    #rmqlogo {
+    #rmqlogo, #vmqlogo {
       width: 3vw;
       height: auto;
     }
-
+  
     #collab {
       width: 2vw;
       height: auto;
@@ -48,44 +45,87 @@
       margin-right: 1vw;
     }
 
-    #vmqlogo {
-      width: 3vw;
-        height: auto;
-        // margin-right: 3vw;
+    .router-links {
+      // border: 1px solid black;
+      margin-left: 65%;
+      justify-self: flex-end;
+      border: 1px solid white;
+      color: white;
+      border-radius: 3px;
+      padding: 1.5%;
+      background-color: rgb(255, 102, 0);
     }
+
+    .router-links:hover {
+      background-color: #ff8f45;
+    }
+
+    .router-links:active {
+      background-color: #ea5e01;
+    }
+
   }
+
+  #mgmt-api {
+    // border: 1px solid black;
+    position: fixed;
+    top: 70vh;
+    // height: 87vh;
+    //   width: 100%;
+    //   overflow: scroll;
+    padding: 1.5%;
+      height: 100vh;
+        width: 100%;
+        transform-origin: top ;
+        transform: scale(50%);
+      zoom: 80%;
+  }
+
+  #metrics {
+    // border: 1px solid black;
+    height: 87vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    // padding: 1.5%;
   
-  #top-container {
-    border: 1px solid #ff6600;
-    border-radius: 3px;
-
-      height: 50%;
-      width: 100%;
-    }
-
-    #bottom-grid {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
-      gap: 1.5%;
-      // border: 1px solid rgb(223, 192, 152);
-        // padding: 1.5%;
-        border-radius: 3px;
-      
+    #top-container {
+      border: 1px solid #ff6600;
+      border-radius: 3px;
+  
         height: 50%;
         width: 100%;
-
-        .graph {
-          // border: 1px solid rgb(223, 192, 152);
+      }
+  
+      #bottom-grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 1.5%;
+        // border: 1px solid rgb(223, 192, 152);
+          // padding: 1.5%;
           border-radius: 3px;
-          background-color: black;
-          // height: 50%;
-          // width: auto;
-          aspect-ratio: 16/9;
-        }
+        
+          height: 50%;
+          width: 100%;
+  
+          .graph {
+            // border: 1px solid rgb(223, 192, 152);
+            border-radius: 3px;
+            background-color: black;
+            // height: 50%;
+            // width: auto;
+            aspect-ratio: 16/9;
+          }
+      }
     }
+      
+    
 }
+
 
 #chart {
   // border: 1px solid black;

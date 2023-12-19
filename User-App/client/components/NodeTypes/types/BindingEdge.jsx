@@ -25,7 +25,7 @@ export default function BindingEdge({ id, sourceX, sourceY, targetX, targetY, so
   //nodrag nopan for className that doesnt move on click
 
   const bindingName = data?.name || 'binding'
-  const intensity = 10;
+  const intensity = 102;
   // const opacity = data.offset === 1 ? .5 : 0
   const opacity = data.offset === 1 ? .5 : .5
 

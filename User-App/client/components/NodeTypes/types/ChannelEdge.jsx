@@ -24,7 +24,7 @@ export default function ChannelEdge({ id, sourceX, sourceY, targetX, targetY, so
   });
   //nodrag nopan for className that doesnt move on click
 
-  const intensity = 10;
+  const intensity = 102;
 
   // const [intensity, setIntensity] = useState(200)
 
