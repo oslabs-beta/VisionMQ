@@ -1,11 +1,15 @@
 /* 
 This test will act as a publisher itself, and connect to the host to send messages to all exchanges, queues, and consumers. 
-The test is a Class that has the following methods: turnOnConsumer, prepTests, runTest, stopTest, takeSnapShot, and updateRoundRobinSuite
+The test is a Class that has the following methods: connectToRabbit, publishMessage, closeConnection, turnOnConsumer, prepTests, runTest, takeSnapShot, and updateRoundRobinSuite.
 
-To create a new instance of the RoundRobin class, you will need to provide the following: rabbitAddress, exchanges, bindings
+This test will send messages to each binding provided in sequential order. 
+
+To create a new instance of the RoundRobin class, you will need to provide the following: rabbitAddress, exchanges, bindings, and a target for how many messages you want to send.
+
   * rabbitAddress is the URL or URL in which the test can connect to the user's RabbitMQ's enviornmnet.
   * exchanges is an array containing objects with information on the exchanges
   * bindings is an array containing objects with the information on all of the bindings 
+  * target is a number, 50k messages take about 1 second, and 100k messages take about 2 seconds. 
 
 examples: 
   rabbitAddress = 'amqp://localhost'
@@ -30,7 +34,7 @@ examples:
 
 const amqp = require('amqplib');
 
-class roundRobinTest {
+class RoundRobinTest {
   constructor (rabbitAddress, exchanges, bindings, target) {
     this.rabbitAddress = rabbitAddress;
     this.exchanges = {}
@@ -60,6 +64,7 @@ class roundRobinTest {
       throw error;
     }
   };
+
 //publishes a message to the exchange
   async publishMessage(exchangeName, key, msgObj) { //exchangeType will need to be added back if you need to assert the exchange in the future
     try {
@@ -71,6 +76,7 @@ class roundRobinTest {
       throw error;
     }
   };
+
   //closes the connection to rabbit 
   async closeConnection() {
     try {
