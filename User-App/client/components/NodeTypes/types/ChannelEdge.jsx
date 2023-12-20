@@ -12,7 +12,7 @@ import {
 export default function ChannelEdge({ id, sourceX, sourceY, targetX, targetY, sourcePosition,
   targetPosition,
   markerEnd,
-  data}) {
+  data, running}) {
   const { setEdges } = useReactFlow();
   const [edgePath, labelX, labelY] = getSmoothStepPath({
     sourceX,

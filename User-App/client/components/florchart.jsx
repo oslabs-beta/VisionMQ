@@ -1,136 +1,171 @@
-// //import { parseQueues, parseExchanges, parseBindings } from ''
-// import React, { useCallback, useEffect, useMemo } from 'react';
-// import ReactFlow, {
-//   MiniMap,
-//   Controls,
-//   Background,
-//   useNodesState,
-//   useEdgesState,
-//   addEdge,
-// } from 'reactflow';
-// import 'reactflow/dist/style.css';
-
-// import BindingEdge from './NodeTypes/BindingEdge';
-// import ExchangeNode from './NodeTypes/ExchangeNode';
-// import QueueNode from './NodeTypes/QueueNode';
-// import ServiceNode from './NodeTypes/ServiceNode';
-// import './NodeTypes/nodeStyles/application.scss'
-
-
-// // const initialNodes = [
-// // ];
-// // const initialEdges = [
-
-// // ];
-
-
-// const FlowChart = ({ data }): JSX.Element => {
-//   const nodeTypes = useMemo(() => ({ 
-//     exchange: ExchangeNode, 
-//     queue: QueueNode,
-//     microservice: ServiceNode
-//   }), []);
-//   const edgeTypes = {
-//    'binding': BindingEdge,
-//   };
-
-//   const [nodes, setNodes, onNodesChange] = useNodesState([]);
-//   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
-
-//   //fetch
-//   //then
-//   //forloop
-//   //each queue make queue
-//   //each exchange make exchange
-//   //each binding connect exchange to queue
-//   //each consumer is made service
-//   //consumer tag bound to queue
-
-
-
-//   useEffect(() => {
-
-//     // //fetch
-
-//     // const n = 4;
-//     // const radius = 300;
-//     // const microservices = [];
-
-//     // for(let i = 1; i = n + 1; i++){
-//     //   const deg = (360/n)*i
-//     //   const xCoor = radius * Math.cos(deg);
-//     //   const yCoor = radius * Math.sin(deg);
-
-//     //   microservices.push({ id: `${i}`, type: 'microservice', position: { x: xCoor , y: yCoor }, data: { label: 'App' } })
-//     // }
-
-//     setNodes([
-//       // ...microservices
-//     //   { id: '1', type: 'microservice', position: { x: 0, y: 0 }, data: { label: 'App' } },
-//       // { id: '2', type: 'microservice', position: { x: 0, y: 200 }, data: { label: 'Auth' } },
-//       // { id: '3',  type: 'microservice', position: { x: 0, y: 400 }, data: { label: 'Inv' } },
-//       // { id: '4',  type: 'microservice', position: { x: 0, y: 600 }, data: { label: 'Bill' } },
-//       // { id: '1q', type: 'queue', position: { x: 200, y: -20 }, data: { label: 'AppQueue' } },
-//       // { id: '2q', type: 'queue', position: { x: 200, y: 180 }, data: { label: 'AuthQueue' } },
-//       // { id: '3q', type: 'queue', position: { x: 200, y: 380 }, data: { label: 'InvQueue' } },
-//       // { id: '4q', type: 'queue', position: { x: 200, y: 580 }, data: { label: 'BillQueue' } },
-//       // { id: 'ex', type: 'exchange', position: { x: 700, y: 300 }, data: { label: 'Exchange' } },
-//       // { id: '1', type: 'microservice', position: { x: 0, y: 0 }, data: { label: 'App' } },
-//       // { id: '1q', type: 'queue', position: { x: 10, y: 100 }, data: { label: 'AppQueue' } },
-//       // { id: '2', type: 'microservice', position: { x: 200, y: 0 }, data: { label: 'Auth' } },
-//       // { id: '2q', type: 'queue', position: { x: 210, y: 100 }, data: { label: 'AuthQueue' } },
-//       // { id: '3',  type: 'microservice', position: { x: 400, y: 0 }, data: { label: 'Inv' } },
-//       // { id: '3q', type: 'queue', position: { x: 410, y: 100 }, data: { label: 'InvQueue' } },
-//       // { id: '4',  type: 'microservice', position: { x: 600, y: 0 }, data: { label: 'Bill' } },
-//       // { id: '4q', type: 'queue', position: { x: 610, y: 100 }, data: { label: 'BillQueue' } },
-//       // { id: 'ex', type: 'exchange', position: { x: 325, y: 800 }, data: { label: 'Exchange' } },
-//     ])
-
-//     setEdges([
-//       // { id: '1->ex', type: 'binding', source: '1', target: 'ex' },
-//       // { id: '2->ex', type: 'binding', source: '2', target: 'ex' },
-//       // { id: '3->ex', type: 'binding', source: '3', target: 'ex' },
-//       // { id: '4->ex', type: 'binding', source: '4', target: 'ex' },
-//       // { id: '1q->1', type: 'binding', target: '1', source: '1q' }, 
-//       // { id: 'ex->1q', type: 'binding', target: '1q', source: 'ex' },
-//       // { id: '2q->2', type: 'binding', target: '2', source: '2q' },
-//       // { id: 'ex->2q', type: 'binding', target: '2q', source: 'ex' },
-//       // { id: '3q->3', type: 'binding', target: '3', source: '3q' }, 
-//       // { id: 'ex->3q', type: 'binding', target: '3q', source: 'ex' },
-//       // { id: '4q->4', type: 'binding', target: '4', source: '4q' },
-//       // { id: 'ex->4q', type: 'binding', target: '4q', source: 'ex' },
-//     ])
-
-//   }, [])
-
- 
-//   const onConnect = useCallback(
-//     (params) => setEdges((eds) => addEdge(params, eds)),
-//     [setEdges],
-//   );
-
-
- 
-//   return (
-//     <div id='chart'>
-//       <div id='flow-chart'>
-//         <ReactFlow
-//           nodes={nodes}
-//           edges={edges}
-//           onNodesChange={onNodesChange}
-//           onEdgesChange={onEdgesChange}
-//           onConnect={onConnect}
-//           nodeTypes={nodeTypes}
-//           edgeTypes={edgeTypes}
-//           fitView
-//         >
-//           <Controls />
-//           <MiniMap />
-//           {/* <Background variant="dots" gap={12} size={1} /> */}
-//         </ReactFlow>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default FlowChart;
+// import Stats from "./MetricTables/Stats"
+// import PubSub from "./MetricTables/PubSub"
+// import { Routes, Route } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import TopContainer from './MetricTables/TopContainer'
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+import {LineChart,Line,XAxis,YAxis,CartesianGrid,Tooltip,ResponsiveContainer} from 'recharts'
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function Metrics({ switcher }) {
+  const [data, setData] = useState({
+    product_name: '',
+    product_version: '',
+    user: '',
+    vhost: '',
+  })
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  let lines = []
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  useEffect( () => {
+      const username = 'guest';
+      const password = 'guest';
+      const url = 'http://localhost:15672/api/definitions';
+      const base64Credentials = btoa(`${username}:${password}`);
+      fetch(url, {
+        method: 'GET',
+        headers: {
+          Authorization: `Basic ${base64Credentials}`,
+          'Content-Type': 'application/json',
+        },
+      })
+      .then(res => res.json())
+      .then(res => {
+        console.log('THIS IS THE RESPONSE FROM MANAGEMENT API', res);
+        console.log(res.product_name,
+        res.product_version,
+          res.users[0].name,
+          res.vhosts[0].name)
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+          console.log(res.queues)
+          for(let queue of res.queues){
+            console.log(queue.name)
+            lines.push(<Line type='monotone' stroke='red' dataKey={queue.name}/>)
+          }
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        setData({
+          product_name: res.product_name,
+          product_version: res.product_version,
+          user: res.users[0].name,
+          vhost: res.vhosts[0].name,
+        })
+        })
+        console.log('THESE ARE THE LINES', lines)
+    }, [])
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+const [lineData,setLineData] = useState([{time:0,InvQueue: 20,AppQueue:20,BillQueue:20,AuthQueue:20},{time:0,InvQueue: 10,AppQueue:10,BillQueue:10,AuthQueue:10}])
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+const queues = {}
+// Function used to calculate the rate of the
+const getRate = (prev,current) => {
+    if(current - prev <= 0) return 0
+    return current - prev
+  }
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const request = await fetch('http://localhost:9090/api/v1/query?query=rabbitmq_queue_messages');
+        const response = await request.json();
+        const result = response.data.result;
+        // Create a new array with the updated data
+        const updatedInfo = lineData.map(entry => ({ ...entry })); // Create a shallow copy
+        // Find the entry with the same timestamp or add a new one
+        const existingEntry = updatedInfo.find(entry => entry.time === new Date().toLocaleTimeString());
+        if (existingEntry) {
+          // Update the existing entry
+          result.forEach(queue => {
+            let queueName = queue.metric.queue;
+            if (!queueName) queueName = 'TotalOfQueues';
+            let messageCount = Number(queue.value[1]);
+            existingEntry[queueName] = messageCount;
+            if (Object.keys(queues).includes(queueName)) {
+              queues[queueName].PREVIOUSMESSAGES = queues[queueName].CURRENTMESSAGES;
+              queues[queueName].CURRENTMESSAGES = messageCount;
+              queues[queueName].RATE = getRate(queues[queueName].PREVIOUSMESSAGES, queues[queueName].CURRENTMESSAGES);
+            } else {
+              const props = {
+                PREVIOUSMESSAGES: 0,
+                CURRENTMESSAGES: messageCount,
+                RATE: messageCount,
+                active: true
+              };
+              queues[queueName] = props;
+            }
+          });
+        } else {
+          // Add a new entry
+          const newEntry = {
+            time: new Date().toLocaleTimeString(),
+          };
+          result.forEach(queue => {
+            let queueName = queue.metric.queue;
+            if (!queueName) queueName = 'TotalOfQueues';
+            let messageCount = Number(queue.value[1]);
+            newEntry[queueName] = messageCount;
+            if (Object.keys(queues).includes(queueName)) {
+              queues[queueName].PREVIOUSMESSAGES = queues[queueName].CURRENTMESSAGES;
+              queues[queueName].CURRENTMESSAGES = messageCount;
+              queues[queueName].RATE = getRate(queues[queueName].PREVIOUSMESSAGES, queues[queueName].CURRENTMESSAGES);
+            } else {
+              const props = {
+                PREVIOUSMESSAGES: 0,
+                CURRENTMESSAGES: messageCount,
+                RATE: messageCount,
+                active: true
+              };
+              queues[queueName] = props;
+            }
+          });
+          updatedInfo.push(newEntry);
+        }
+        console.log('THIS IS THE REPLACEMENT INFORMATION', updatedInfo);
+        // Update state with the new array
+        setLineData(updatedInfo);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    // Run fetchData every 1 second
+    const intervalId = setInterval(() => {
+      fetchData();
+    }, 1000);
+    // Cleanup function to clear the interval when the component unmounts
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [lineData]);
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+const newData = () => {
+  console.log('newData ran')
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+const margin = { top: 5, right: 5, bottom: 5, left: 5 }
+const renderLineChart = (
+  <ResponsiveContainer height={200} width={400}>
+    <LineChart margin={margin} data={lineData}>
+    <Line stroke='red' dataKey='AppQueue' type='monotone'/>
+    <Line stroke='orange' dataKey='InvQueue' type='monotone'/>
+    <Line stroke='green' dataKey='BillQueue' type='monotone'/>
+    <Line stroke='blue' dataKey='AuthQueue' type='monotone'/>
+      <CartesianGrid stroke="#ccc" />
+      <XAxis dataKey="time" />
+      <YAxis/>
+      <Tooltip />
+    </LineChart>
+  </ResponsiveContainer>
+)
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  return (
+    <div id='left-side'>
+      <div id='metrics'>
+      <button onClick={newData}>CHANGE STATE</button>
+        <TopContainer data={data}/>
+          <iframe id='mgmt-api' style={{visibility: `${!switcher ? 'hidden' : 'visible'}`}} src="http://localhost:15672/#/" frameborder="0"></iframe>
+          <div id='bottom-grid' style={{visibility: `${switcher ? 'hidden' : 'visible'}`}}>
+                {renderLineChart}
+          </div>
+        </div>
+    </div>
+  )
+}
+export default Metrics

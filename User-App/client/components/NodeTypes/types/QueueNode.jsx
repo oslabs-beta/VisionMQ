@@ -9,7 +9,7 @@ function QueueNode({data}) {
   }, []);
 
   const handles = [];
-  const fraction = 100/data.offset
+  const fraction = 120/data.offset
 
   for(let i = 1; i <= data.offset; i++){
     handles.push(<Handle type="target" style={{left: i*fraction - fraction/2 }} position={Position.Bottom} id={`${i}`} />)
