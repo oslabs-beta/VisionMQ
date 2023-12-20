@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react'
-import Stats from "./MetricTables/Stats"
-import PubSub from "./MetricTables/PubSub"
 import TopContainer from './MetricTables/TopContainer'
 import Graph from './MetricTables/Graph'
 import { Routes, Route } from 'react-router-dom'
 
-function Metrics({ switcher }) {
+
+function Metrics({ switcher, refreshed }) {
   const [data, setData] = useState({
     product_name: '',
     product_version: '',
     user: '',
     vhost: '',
+    queues: [],
+    bindings: [],
   })
 
 
@@ -41,10 +42,12 @@ function Metrics({ switcher }) {
           product_version: res.product_version,
           user: res.users[0].name,
           vhost: res.vhosts[0].name,
+          queues: res.queues,
+          bindings: res.bindings
         })
         })
 
-    }, [])
+    }, [refreshed])
   
 
 
@@ -52,7 +55,7 @@ function Metrics({ switcher }) {
     <div id='left-side'>
       <div id='metrics'>
         <TopContainer data={data}/>
-          <iframe id='mgmt-api' style={{visibility: `${!switcher ? 'hidden' : 'visible'}`}} src="http://localhost:15672/#/" frameborder="0"></iframe>
+          <iframe id='mgmt-api' style={{visibility: `${!switcher ? 'hidden' : 'visible'}`}} src="http://localhost:15672/#/" frameBorder="0"></iframe>
           <div id='bottom-grid' style={{visibility: `${switcher ? 'hidden' : 'visible'}`}}>
             <Graph />
             <Graph />
@@ -67,9 +70,6 @@ function Metrics({ switcher }) {
               <li>DONE When you click a node, it hides any nodes that that nodes edges aren't touching</li>
               <br></br>
             </ul> */}
-          
-          {/* <PubSub />
-          <Stats /> */}
         </div>
     </div>
   )
