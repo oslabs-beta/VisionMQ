@@ -44,9 +44,9 @@ function Stats( {queus, bindings, selected} ) {
 
   return (
     <div id='stats'>
-      <div className="statistic"><div><h4 id='bindings-header'>box 1</h4></div></div>
-      <div className="statistic"><div><h4 id='bindings-header'>box 2</h4></div></div>
-      <div className="statistic"><div><h4 id='bindings-header'>box 3</h4></div></div>
+      <div className="statistic"><div><h4 id='bindings-header'>{`${selected === 'Overview' ? 'in queues' : 'in queue'}`}</h4></div></div>
+      <div className="statistic"><div><h4 id='bindings-header'>rate</h4></div></div>
+      <div className="statistic"><div><h4 id='bindings-header'>total delivered</h4></div></div>
       <div className="statistic"><div><h4 id='bindings-header'>bindings</h4></div>
       <div id='bindings-collection'>{details}{hashtags}</div>
       </div>

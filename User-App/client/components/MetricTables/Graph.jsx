@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import {LineChart,Line,XAxis,YAxis,CartesianGrid,Tooltip,ResponsiveContainer} from 'recharts'
+import CustomToolTip from './CustomTooltip'
 
 function Graph() {
   const [lineData,setLineData] = useState([{time:0,InvQueue: 20,AppQueue:20,BillQueue:20,AuthQueue:20},{time:0,InvQueue: 10,AppQueue:10,BillQueue:10,AuthQueue:10}])
@@ -85,24 +86,25 @@ const getRate = (prev,current) => {
   }, [lineData]);
 
 
-const margin = { top: 5, right: 5, bottom: -5, left: -20 }
+const margin = { top: 20, right: 15, bottom: 0, left: -20 }
 const renderLineChart = (
-  <ResponsiveContainer height={'100%'} width={'100%'}>
-    <LineChart margin={margin} data={lineData}>
-    <Line stroke='red' dataKey='AppQueue' type='monotone'/>
-    <Line stroke='orange' dataKey='InvQueue' type='monotone'/>
-    <Line stroke='green' dataKey='BillQueue' type='monotone'/>
-    <Line stroke='blue' dataKey='AuthQueue' type='monotone'/>
-      <CartesianGrid stroke="#ccc" />
-      <XAxis dataKey="time" />
-      <YAxis/>
-      <Tooltip />
+  <ResponsiveContainer height={'95%'} width={'100%'}>
+    <LineChart id='line-chart' margin={margin} data={lineData}>
+    <Line stroke='#ff6600' dataKey='AppQueue' type='monotone' isAnimationActive={false} />
+    <Line stroke='#ff6600' dataKey='InvQueue' type='monotone' isAnimationActive={false} />
+    <Line stroke='#ff6600' dataKey='BillQueue' type='monotone' isAnimationActive={false}/>
+    <Line stroke='#ff6600' dataKey='AuthQueue' type='monotone' isAnimationActive={false}/>
+      {/* <CartesianGrid stroke="#ccc" strokeDasharray={" 5 5"} vertical={false} /> */}
+      <XAxis dataKey="time" stroke="#ccc"/>
+      <YAxis stroke="#ccc"/>
+      <Tooltip content={<CustomToolTip />}/>
     </LineChart>
   </ResponsiveContainer>
 )
 
   return (
     <div className='graph'>
+      <h4>throughput</h4>
             {renderLineChart}
     </div>
   )
