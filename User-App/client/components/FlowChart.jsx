@@ -22,27 +22,27 @@ import './NodeTypes/nodeStyles/application.scss'
 const initialNodes = [];
 const initialEdges = [];
 
-const getDefinitions = async () => {
-      // data = await fetch('/load')
-      // console.log('we got the data on the front: ', data)
+// const getDefinitions = async () => {
+//       // data = await fetch('/load')
+//       // console.log('we got the data on the front: ', data)
 
-      const username = 'guest';
-      const password = 'guest';
-      const url = 'http://localhost:15672/api/definitions';
+//       const username = 'guest';
+//       const password = 'guest';
+//       const url = 'http://localhost:15672/api/definitions';
 
-      const base64Credentials = btoa(`${username}:${password}`);
+//       const base64Credentials = btoa(`${username}:${password}`);
 
-      let request = await fetch(url, {
-        method: 'GET',
-        headers: {
-          Authorization: `Basic ${base64Credentials}`,
-          'Content-Type': 'application/json',
-        },
-      });
-      let response = await request.json();
-      console.log('THIS IS THE RESPONSE FROM MANAGEMENT API', response);
-      return response;
-    }
+//       let request = await fetch(url, {
+//         method: 'GET',
+//         headers: {
+//           Authorization: `Basic ${base64Credentials}`,
+//           'Content-Type': 'application/json',
+//         },
+//       });
+//       let response = await request.json();
+//       console.log('THIS IS THE RESPONSE FROM MANAGEMENT API', response);
+//       return response;
+//     }
 
 const FlowChart = ({refresh, refreshed, running}) => {
   const nodeTypes = useMemo(() => ({ 
