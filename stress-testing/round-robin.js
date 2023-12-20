@@ -28,85 +28,10 @@ examples:
     }, {...}, {...}]
 */ 
 
-const amqp = require('amqplib/callback_api');
-
-//this test consumer is currently connecting but is not showing the messages in the console of this test
-const testConsume = (exchangeName) => {
-  const exchange = exchangeName;
-  amqp.connect('amqp://localhost', function (error, connection) {
-    console.log('consumer is on')
-    if (error) console.log('error connecting to amqp: ', error.message);
-    connection.createChannel(function (error, channel) {
-  
-      if (error) console.log('error connecting to the channel: ',error.message)
-      channel.assertExchange(exchange, 'topic', {durable: true})
-      
-      channel.assertQueue('TestQueue');
-      channel.bindQueue('TestQueue', exchange, '*');
-      channel.consume(
-        'TestQueue',
-        async (msg) => {
-          const message = await JSON.parse(msg.toString());
-          console.log(msg);
-        },
-      { noAck: true })
-    })
-  })
-};
-
-//this is the test publisher that will send out all of the messages during the test
-const testPublisher = (exchangeName, exchangeType, rabbitAddress, key, msgObj) => {
-  console.log('connecting to the publisher')
-
-  amqp.connect(rabbitAddress, function (error, connection) {
-
-    if (error) console.log('error connecting to amqp: ', error.message);
-
-    connection.createChannel(function (err, channel) {
-
-    if (error) console.log('error connecting to the channel: ', err.message);
-      channel.assertExchange(exchangeName, exchangeType, {durable: true})
-      channel.publish(exchangeName, key, Buffer.from(JSON.stringify(msgObj)))
-      //console.log(key, msgObj)
-      })
-      setTimeout(() => {
-        connection.close();
-      }, 500)
-    })
-};
-
-//these are only used to test the RoundRobin Class
-const exchanges = [
-    { 
-      name: 'trekker_topic',
-      vhost: '/',
-      type: 'topic',
-      durable: true,
-      auto_delete: false,
-      internal: false,
-      arguments: {}
-    }]
-const bindings1 = [
-  {
-    source: 'trekker_topic',
-    vhost: '/',
-    destination: 'AuthQueue',
-    destination_type: 'queue',
-    routing_key: 'Auth',
-    arguments: {}
-  },
-  {
-    source: 'trekker_topic',
-    vhost: '/',
-    destination: 'AppQueue',
-    destination_type: 'queue',
-    routing_key: '#.failed',
-    arguments: {}
-  }]
-
+const amqp = require('amqplib');
 
 class roundRobinTest {
-  constructor (rabbitAddress, exchanges, bindings) {
+  constructor (rabbitAddress, exchanges, bindings, target) {
     this.rabbitAddress = rabbitAddress;
     this.exchanges = {}
     this.bindings = bindings;
@@ -120,14 +45,50 @@ class roundRobinTest {
     exchanges.forEach((exc) => {
       this.exchanges[exc.name] = exc;
     })
+    this.target = target;
   }
-  //this will be removed later, it's only been added for testing purposes. 
-  turnOnConsumer () {
-    testConsume('trekker_topic');
-  }
+  
+  //this method makes the connetion to rabbit 
+  async connectToRabbitMQ() {
+    try {
+      this.connection = await amqp.connect(this.rabbitAddress); 
+      this.channel = await this.connection.createChannel();
+      console.log('Connected to amqp');
+
+    } catch (error) {
+      console.error('Error establishing connection:', error);
+      throw error;
+    }
+  };
+//publishes a message to the exchange
+  async publishMessage(exchangeName, key, msgObj) { //exchangeType will need to be added back if you need to assert the exchange in the future
+    try {
+      //await this.channel.assertExchange(exchangeName, exchangeType, { durable: true });
+      this.channel.publish(exchangeName, key, Buffer.from(JSON.stringify(msgObj)));
+      this.totalMessagesSent++;
+    } catch (error) {
+      console.error('Error publishing message:', error);
+      throw error;
+    }
+  };
+  //closes the connection to rabbit 
+  async closeConnection() {
+    try {
+      if (this.channel) {
+        await this.channel.close();
+      }
+      if (this.connection) {
+        await this.connection.close();
+      }
+    } catch (error) {
+      console.error('Error closing connection:', error);
+      throw error;
+    }
+  };
+
   //this method needs to be run so it can compile all of the exchanges and bindings in a format to be easily sent to the publisher 
   prepTests () { 
-    this.turnOnConsumer();
+    this.connectToRabbitMQ();
     this.bindings.forEach((binding) => {
       this.testMessages.push({
         exchangeName: binding.source,
@@ -141,27 +102,42 @@ class roundRobinTest {
   }
 
   //method to begin testing
-  runTest () { 
+  async runTest () { 
     if (this.readyToTest === false) return;
-    this.testMessages.forEach((msg) => {
-      testPublisher(msg.exchangeName, msg.exchangeType, msg.rabbitAddress, msg.key, msg.message)
-      this.totalMessagesSent++;
-    })
-  }
-
-  //method to stop running the test 
-  stopTest () {
-    if (this.readyToTest === false) return;
+    try {
+      if (!this.connection || !this.channel) {
+        await this.connectToRabbitMQ();
+        console.log('Starting the round robin test.')
+      }
+      this.start = new Date(Date.now());
+      while(this.totalMessagesSent <= this.target) {
+        this.testMessages.forEach(async (msg) => {
+          await this.publishMessage(msg.exchangeName, msg.key, msg.message) //msg.exchangeType
+        })   
+      }
+      this.takeSnapShot(this.start);
+      this.closeConnection();
+      console.log(this.snapShots)
+    }
+    catch (error) {
+      console.error('Error running tests:', error);
+    } 
   }
 
   //this will take a snapshot of the current testing environment 
-  takeSnapShot () {
+  takeSnapShot (startDate) {
+    console.log('Taking a snapshot.')
     this.snapShots.push({
       rabbitAddress: this.rabbitAddress,
       exchanges: this.exchanges,
       bindings: this.bindings,
       testMessages: this.testMessages,
       totalMessagesSent: this.totalMessagesSent,
+      target: this.target,
+      start: startDate,
+      end: new Date(Date.now()),
+      testDuration: (Date.now()-startDate) / 1000,
+      messageSuccessRate: Math.floor(this.totalMessagesSent/this.target * 100),
     });
   } 
 
@@ -182,10 +158,6 @@ class roundRobinTest {
   }
 }
 
-const tester = new roundRobinTest('amqp://localhost', exchanges, bindings1)
-tester.prepTests()
-tester.runTest();
-tester.takeSnapShot()
 
 
-//export default roundRobinTest;
+module.export = roundRobinTest;
