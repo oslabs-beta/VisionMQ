@@ -50,7 +50,12 @@ module.exports = {
     hot: true,
     compress: true,
     proxy: {
-      '/': 'http://localhost:3000',
+      '/': 'http://localhost:3005',
+      '/load': 'http://localhost:3005',
+      // '/api/*': {
+      //   target: 'http://localhost:15672/',
+      //   auth: 'guest:guest',
+      // },
     },
   },
   plugins: [
