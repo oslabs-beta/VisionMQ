@@ -3,7 +3,8 @@ import TopContainer from './MetricTables/TopContainer'
 import Graph from './MetricTables/Graph'
 import { Routes, Route } from 'react-router-dom'
 
-function Metrics({ switcher }) {
+
+function Metrics({ switcher, refreshed }) {
   const [data, setData] = useState({
     product_name: '',
     product_version: '',
@@ -46,7 +47,7 @@ function Metrics({ switcher }) {
         })
         })
 
-    }, [])
+    }, [refreshed])
   
 
 

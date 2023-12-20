@@ -227,21 +227,29 @@
 
                 h4 {
                   font-size: 1rem;
+                  font-weight: 300;
                   // color: #ff66005f;
                   color: #ff6600e1;
                   text-align: left;
                   transition: all .2s ease 0s;
                   // margin-bottom: 4%;;
                 }
+
+                .top-icon {
+                  height: 6%;
+                  width: auto;
+                }
                 
                 #bindings-collection {
                   // border: 1px solid black;
-                  height: 70%;
+                  padding: 2% 0 0 0;
+                  height: 75%;
                   display: flex;
                   flex-direction: column;
                   // align-items: center;
                   flex-wrap: wrap;
-                  width: 55%;
+                  margin-left: 7%;
+                  width: 70%;
 
                   p {
                     // border: .5px solid black;
@@ -293,11 +301,14 @@
           .graph {
             border: 1px solid rgb(223, 192, 152);
             border-radius: 3px;
-            // background-color: black;
+            // background-color: #ff66006a;
             height: 50%;
             width: 49%;
             margin-bottom: 1%;
-            // aspect-ratio: 16/9;
+            // border: 1px solid #ff6600;
+              background-image: radial-gradient(rgba(243, 202, 173, 0.209) 1px, transparent 0);
+              background-size: 6px 6px;
+              background-position: -19.75px -15.5px;
           }
       }
     }

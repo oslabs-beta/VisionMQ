@@ -12,7 +12,7 @@ import {
 export default function BindingEdge({ id, sourceX, sourceY, targetX, targetY, sourcePosition,
   targetPosition,
   markerEnd,
- data }) {
+ data, running }) {
   // console.log(data.name, data.offset)
   const { setEdges } = useReactFlow();
   const [edgePath, labelX, labelY] = getBezierPath({
@@ -28,7 +28,7 @@ export default function BindingEdge({ id, sourceX, sourceY, targetX, targetY, so
   const bindingName = data?.name || 'binding'
   const intensity = 102;
   // const opacity = data.offset === 1 ? .5 : 0
-  const opacity = data.offset === 1 ? .5 : .5
+  const opacity = .5
 
   // const [intensity, setIntensity] = useState(200)
 
@@ -43,6 +43,7 @@ export default function BindingEdge({ id, sourceX, sourceY, targetX, targetY, so
       <BaseEdge id={id} path={edgePath} markerEnd={markerEnd} style={
         {
             stroke: `rgba(255, ${intensity}, 0, ${opacity})`, strokeWidth: "2"
+            // stroke: `rgba(102, 200, 102, .5)`, strokeWidth: "2"
           }} />
       <EdgeLabelRenderer>
         <div 

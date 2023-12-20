@@ -9,7 +9,7 @@ function ExchangeNode({data}) {
   }, []);
  
   return (
-    <div className='exchange-node'>
+    <div className='exchange-node' onClick={() => data.refresh()}>
       <Handle style= { {top: '50%', visibility: 'hidden'} } type="target" position={Position.Top} />
       <div className='exchange-body' style={{textAlign: 'center'}}>
         <p>exchange:<br></br><i>{data.name}</i></p>

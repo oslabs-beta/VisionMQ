@@ -44,7 +44,7 @@ const getDefinitions = async () => {
       return response;
     }
 
-const FlowChart = () => {
+const FlowChart = ({refresh, refreshed, running}) => {
   const nodeTypes = useMemo(() => ({ 
     exchange: ExchangeNode, 
     queue: QueueNode,
@@ -61,11 +61,14 @@ const FlowChart = () => {
   const [focus, setFocus] = useState('all')
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
-
+  
+  
   const isolate = (name) => {
     console.log(name)
     focus === 'all' ? setFocus(name) : setFocus('all') 
   }
+  
+  
 
   let data;
   const queueCache = {}
@@ -122,7 +125,7 @@ const FlowChart = () => {
               bindings.push({ id: myId, type: 'binding', markerEnd: {
                 type: MarkerType.ArrowClosed,
                 color: '#FF6600',
-              }, target: `${el.destination}`, targetHandle: `${bindingCount[el.destination]}`, source: `${el.source}`, data:{name: `${el.routing_key}`, offset: bindingCount[el.destination] } })
+              }, target: `${el.destination}`, targetHandle: `${bindingCount[el.destination]}`, source: `${el.source}`, data:{name: `${el.routing_key}`, offset: bindingCount[el.destination] }, running: running })
             }
           })
           
@@ -141,7 +144,7 @@ const FlowChart = () => {
             bindings.push({ id: `${el.name}->${i}`, type: 'channel', markerEnd: {
               type: MarkerType.ArrowClosed,
               color: '#FF6600',
-            }, target: `${i}`, source: `${el.name}` })
+            }, target: `${i}`, source: `${el.name}`, running: running })
           }
           })
             
@@ -149,7 +152,7 @@ const FlowChart = () => {
             //for additional exchanges so that they don't overlap and then that ex's
             //respective services will have a circle with a different center
           data.exchanges.forEach((ex) => {
-            exchanges.push({ id: `${ex.name}`, type: 'exchange', position: { x: -15, y: -50 }, data: { name: `${ex.name}` } })
+            exchanges.push({ id: `${ex.name}`, type: 'exchange', position: { x: -15, y: -50 }, data: { name: `${ex.name}`, refresh: refresh }  })
           })
   
             setNodes([...microservices, ...queues, ...exchanges ])
@@ -170,7 +173,7 @@ const FlowChart = () => {
       //   clearTimeout(intervalId)
       // }
       // )
-      }, [focus])
+      }, [focus, refreshed])
    
 
   const changeNum = () => {

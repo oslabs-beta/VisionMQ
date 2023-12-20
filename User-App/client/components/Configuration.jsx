@@ -5,7 +5,7 @@ import vmqLogo from '../../assets/visionlogo.png'
 import { Link } from 'react-router-dom'
 import Metrics from './Metrics'
 
-function Configuration() {
+function Configuration({ refresh, refreshed}) {
   // const [count, setCount] = useState(0)
   const [switcher, setSwitcher] = useState(false)
 
@@ -21,9 +21,9 @@ function Configuration() {
             <img id='collab' src={collab} />
             <a href='https://rabbitmq.com/'><img id='rmqlogo' src={rmqLogo} /></a>
           </div>
-          <button onClick={changeSwitcher} className='router-links'>Toggle</button>
+          <button onClick={changeSwitcher} className='router-links'>toggler</button>
           </div>
-        <Metrics switcher={switcher}/>
+        <Metrics switcher={switcher} refreshed={refreshed}/>
     </div>
   )
 }

@@ -23,19 +23,19 @@ function Stats( {queus, bindings, selected} ) {
       console.log(route, cache[route]) 
       if(cache[bindings[i].routing_key] === 1) {
         if(bindings[i].routing_key[0] === '#') {
-          hashtags.push(<p>{bindings[i].routing_key}</p>)
+          hashtags.push(<p>• {bindings[i].routing_key}</p>)
           continue;
         }
-        details.push(<p>{bindings[i].routing_key}</p>)
+        details.push(<p>• {bindings[i].routing_key}</p>)
       }
     }
 
     if(selected === bindings[i].destination){
       if(bindings[i].routing_key[0] === '#') {
-          hashtags.push(<p>{bindings[i].routing_key}</p>)
+          hashtags.push(<p>• {bindings[i].routing_key}</p>)
           continue;
         }
-      details.push(<p>{bindings[i].routing_key}</p>)
+      details.push(<p>• {bindings[i].routing_key}</p>)
     }
 
   }
@@ -44,10 +44,10 @@ function Stats( {queus, bindings, selected} ) {
 
   return (
     <div id='stats'>
-      <div className="statistic"></div>
-      <div className="statistic"></div>
-      <div className="statistic"></div>
-      <div className="statistic"><h4 id='bindings-header'>{'Bindings'}</h4>
+      <div className="statistic"><div><h4 id='bindings-header'>box 1</h4></div></div>
+      <div className="statistic"><div><h4 id='bindings-header'>box 2</h4></div></div>
+      <div className="statistic"><div><h4 id='bindings-header'>box 3</h4></div></div>
+      <div className="statistic"><div><h4 id='bindings-header'>bindings</h4></div>
       <div id='bindings-collection'>{details}{hashtags}</div>
       </div>
     </div>
