@@ -4,7 +4,7 @@ function Graph() {
 
   return (
     <div className='graph'>
-        <p>hi</p>
+        {/* <p>hi</p> */}
     </div>
   )
 }

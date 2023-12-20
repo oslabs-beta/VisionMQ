@@ -54,7 +54,7 @@ function Metrics({ switcher }) {
     <div id='left-side'>
       <div id='metrics'>
         <TopContainer data={data}/>
-          <iframe id='mgmt-api' style={{visibility: `${!switcher ? 'hidden' : 'visible'}`}} src="http://localhost:15672/#/" frameborder="0"></iframe>
+          <iframe id='mgmt-api' style={{visibility: `${!switcher ? 'hidden' : 'visible'}`}} src="http://localhost:15672/#/" frameBorder="0"></iframe>
           <div id='bottom-grid' style={{visibility: `${switcher ? 'hidden' : 'visible'}`}}>
             <Graph />
             <Graph />

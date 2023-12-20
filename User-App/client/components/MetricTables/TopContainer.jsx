@@ -3,7 +3,12 @@ import Stats from "./Stats"
 import PubSub from "./PubSub"
 
 function TopContainer({ data }) {
-  // const [count, setCount] = useState(0)
+  const [selected, setSelected] = useState('Overview')
+
+  const select = (e) => {
+    // console.log(e.target.innerText)
+    setSelected(`${e.target.innerText}`)
+  }
 
   return (
     <div id='top-container'>
@@ -13,9 +18,9 @@ function TopContainer({ data }) {
       </div>
       <div className='divider'></div>
       <div id='rabbit-elements'>
-        <PubSub queues={data.queues} bindings={data.bindings} />
+        <PubSub queues={data.queues} bindings={data.bindings} select={select} selected={selected}/>
         <div className='vert-divider'></div>
-        <Stats />
+        <Stats queues={data.queues} bindings={data.bindings} selected={selected}/>
       </div>
     </div>
   )

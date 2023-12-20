@@ -211,17 +211,66 @@
                 // background-color: black;
                 height: 48%;
                 width: 48%;
+                padding: 2%;
                 border-radius: 3px;
                 transition: all .2s ease 0s;
                 // box-shadow: inset 0px 0px 3px .5px rgb(226, 226, 226);
-                border: 1px solid rgba(226, 226, 226, 0.539);
+                // border: 1px solid #ff66005f;
+                border: 1px solid #ff6600b0;
                 background-image: radial-gradient(rgba(243, 202, 173, 0.209) 1px, transparent 0);
                 background-size: 6px 6px;
                 background-position: -19.75px -15.5px;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+
+                h4 {
+                  font-size: 1rem;
+                  // color: #ff66005f;
+                  color: #ff6600e1;
+                  text-align: left;
+                  transition: all .2s ease 0s;
+                  // margin-bottom: 4%;;
+                }
+                
+                #bindings-collection {
+                  // border: 1px solid black;
+                  height: 70%;
+                  display: flex;
+                  flex-direction: column;
+                  // align-items: center;
+                  flex-wrap: wrap;
+                  width: 55%;
+
+                  p {
+                    // border: .5px solid black;
+                    font-size: .8rem;
+                    color: #ff6600e1;
+                    transition: all .2s ease 0s;
+                    width: 30%;
+                    margin-bottom: 5%;
+                      
+                  }
+                }
+
               }
 
               .statistic:hover {
                 border: 1px solid #ff6600;
+                  background-image: radial-gradient(rgba(243, 202, 173, 0.209) 1px, transparent 0);
+                  background-size: 6px 6px;
+                  background-position: -19.75px -15.5px;
+
+                  h4 {
+                    color: #ff6600;
+                  }
+
+                  #bindings-collection {
+                    p {
+                    color: #ff6600;
+                    }
+                  }
               }
           }
 
@@ -235,19 +284,20 @@
         align-items: center;
         gap: 1.5%;
         // border: 1px solid rgb(223, 192, 152);
-          // padding: 1.5%;
+          padding: 3% 0;
           border-radius: 3px;
         
           height: 50%;
           width: 100%;
   
           .graph {
-            // border: 1px solid rgb(223, 192, 152);
+            border: 1px solid rgb(223, 192, 152);
             border-radius: 3px;
-            background-color: black;
-            // height: 50%;
-            // width: auto;
-            aspect-ratio: 16/9;
+            // background-color: black;
+            height: 50%;
+            width: 49%;
+            margin-bottom: 1%;
+            // aspect-ratio: 16/9;
           }
       }
     }
