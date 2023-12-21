@@ -14,7 +14,7 @@ function MainContainer() {
   // const [running, setRun] = useState(false)
   let intervalId = '';
 
-  const stressTest = async () => {
+  const stressTest = async (input) => {
     // console.log('button')
     if(intervalId !== ''){
       console.log('clear')
@@ -40,6 +40,16 @@ function MainContainer() {
         .then(async res => {
           console.log(res)
           console.log('now on to the test...')
+          const { exchanges, bindings } = res;
+
+          console.log('this is it', input);
+          const target = input === '' ? 100 : +input
+          const toSend = {
+            rabbitAddress: 'amqp://localhost',
+            exchanges,
+            bindings,
+            target: target
+          }
 
           const tester = () => {
             fetch('/roundrobin', {
@@ -47,7 +57,7 @@ function MainContainer() {
               headers: {
                 'Content-type': 'application/json'
               },
-              body: JSON.stringify(res)
+              body: JSON.stringify(toSend)
             })
             .then(res => res.json())
             .then(res => {

@@ -58,10 +58,11 @@
     #router-links {
       height: 100%;
       // border: 1px solid black;
-      padding: .75%;
+      padding: 1.5%;
       display: flex;
       justify-content: flex-end;
       align-items: center;
+      // transition: all .3s ease 0s;
     }
     
     .link-left {
@@ -69,13 +70,13 @@
       // margin-left: 65%;
       height: 100%;
       justify-self: flex-end;
-      border: 1px solid white;
+      border: 1px solid #ff6600;
       color: white;
       border-radius: 3px;
       padding: 1.5% 3%;
       background-color: rgb(255, 102, 0);
       margin-left: 3%;
-
+      margin-right: 3%;
     }
 
     .link-right {
@@ -83,7 +84,7 @@
       height: 100%;
       width: 10%;
       justify-self: flex-end;
-      border: 1px solid white;
+      border: 1px solid #ff6600;
       color: white;
       border-radius: 3px;
       padding: .5% 2%;
@@ -92,6 +93,22 @@
         width: 100%;
       }
     }
+
+        #input-right {
+          // border: 1px solid black;
+          height: 100%;
+          width: 10%;
+          justify-self: flex-end;
+          border: 1px solid #ff6600;
+          color: #ff6600;
+          border-radius: 3px;
+          padding: .5% 2%;
+          background-color: transparent;
+          outline: none;
+          font-size: .7rem;
+          text-align: center;
+          transition: all .3s ease 0s;
+        }
 
         .link-left:hover {
       background-color: #ff8f45;
