@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import TopContainer from './MetricTables/TopContainer'
 import Graph from './MetricTables/Graph'
+import ReadGraph from './MetricTables/Read'
+import WriteGraph from './MetricTables/Write'
 import { Routes, Route } from 'react-router-dom'
 
 
@@ -60,7 +62,9 @@ function Metrics({ switcher, refreshed, runProm }) {
             <Graph runProm={runProm} />
             {/* <Graph />
             <Graph />
-            <Graph /> */}
+            <Graph />
+            <Graph />
+            <Graph />
           </div>
           {/* <ul>
               <li>Hide binding labels unless you hover over the queue, and display that nodes data</li>
