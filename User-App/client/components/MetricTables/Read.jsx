@@ -1,32 +1,85 @@
-/* eslint-disable no-shadow */
-
-//NOTES
-      //Needle position is 'value'
-      //
-
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
 import { PieChart, Pie, Cell } from 'recharts';
+      
+function ReadGraph() {
 
-function ReadGraph(){
-const [operations,setOperations] = useState(0)
-
+const [operations, setOperations] = useState(0);
+const [targetOperations, setTargetOperations] = useState(0);
+const [animationValue, setAnimationValue] = useState(0);
+const [animationCompleted, setAnimationCompleted] = useState(false);
+      
+        //Needle startup
 useEffect(() => {
- let fetcher = async() => {
+  
+  let value = 0;
+  const increment = 1;
+  const animationDuration = 9000; 
+  const animationInterval = 4;
+  const maxValue = 172;
+  let forward, reverse;
+      
+  
+  const animateForward = () => {
+    forward = setInterval(() => {
+    value += increment;
+        if(value >= maxValue) {
+        clearInterval(forward);
+        animateReverse();
+        }
+        
+        setAnimationValue(value);
+            }, animationInterval);
+          };
+        
+          const animateReverse = () => {
+            reverse = setInterval(() => {
+              value -= increment;
+              if (value <= 0) {
+                clearInterval(reverse);
+                setAnimationCompleted(true);
+              }
+              setAnimationValue(value)
+            }, animationInterval)
+          };
+        
+          animateForward();
+        
+          return () => {
+            clearInterval(forwardIntervalId)
+            clearInterval(reverseIntervalId)
+          };
+        }, []);
 
-      let read = await fetch('http://localhost:9090/api/v1/query?query=rabbitmq_io_read_ops_total')
-          
-      const read_object = await read.json()
-      const read_result = read_object.data.result[0].value[1]
-      setOperations(read_result)
-  }
-  const intervalId = setInterval(() => {
-    fetcher();
-  }, 1000);
-  // Cleanup function to clear the interval when the component unmounts
-  return () => {
-    clearInterval(intervalId);
-  };
-},[operations])
+        //Needle mover
+        useEffect(() => {
+          const intervalId = setInterval(() => {
+            setOperations((prevOperations) => {
+              if (prevOperations < targetOperations) {
+                return Math.min(prevOperations + 1, targetOperations)
+              } else if (prevOperations > targetOperations) {
+                return Math.max(prevOperations - 1, targetOperations)
+              } else {
+                return prevOperations
+              }
+            })
+          }, .2)
+          return () => clearInterval(intervalId)
+        }, [targetOperations])
+      
+        //Fetches data
+        useEffect(() => {
+          if (animationCompleted) {
+            const fetcher = async () => {
+              let read = await fetch('http://localhost:9090/api/v1/query?query=rabbitmq_io_read_ops_total')
+              const read_object = await read.json()
+              const read_result = read_object.data.result[0].value[1]
+              setTargetOperations(read_result)
+            };
+      
+            const intervalId = setInterval(fetcher, 1000)
+            return () => clearInterval(intervalId)
+          }
+}, [animationCompleted]);
 
 const RADIAN = Math.PI / 180;
 const data = [
@@ -81,7 +134,7 @@ const needle = (value, data, cx, cy, iR, oR, color) => {
           <Cell key={`cell-${index}`} fill={entry.color} />
         ))}
       </Pie>
-      {needle(value, data, cx, cy, iR, oR, '#264653')}
+      {animationCompleted ? needle(operations, data, cx, cy, iR, oR, '#264653') : needle(animationValue, data, cx, cy, iR, oR, '#264653')}
   
       {/* Display the value of the needle below the pie chart */}
       <text x={cx} y={cy + oR + 20} fill="#000" textAnchor="middle" dominantBaseline="central">

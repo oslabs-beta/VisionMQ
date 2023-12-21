@@ -1,32 +1,80 @@
-//NOTES
-      //Needle position is 'value'
-      //
-
 import React, { useState, useEffect } from 'react'
 import { PieChart, Pie, Cell } from 'recharts';
       
 function WriteGraph(){
 
-  const [operations,setOperations] = useState(0)
+const [operations, setOperations] = useState(0);
+const [targetOperations, setTargetOperations] = useState(0);
+const [animationValue, setAnimationValue] = useState(0);
+const [animationCompleted, setAnimationCompleted] = useState(false);
+      
+useEffect(() => {
+ let value = 0;
+  const increment = 1;
+  const animationDuration = 9000;
+  const animationInterval = 4;
+  const maxValue = 172;
+  let forward, reverse;
+        
+    const animateForward = () => {
+      forward = setInterval(() => {
+      value += increment;
+        if (value >= maxValue) {
+            clearInterval(forward);
+                animateReverse();
+              }
+              setAnimationValue(value);
+            }, animationInterval);
+    };
+        
+    const animateReverse = () => {
+      reverse = setInterval(() => {
+      value -= increment;
+        if (value <= 0) {
+          clearInterval(reverse);
+          setAnimationCompleted(true);
+          }
+        setAnimationValue(value)}, animationInterval);
+    };
+        
+          animateForward();
+        
+          return () => {
+            clearInterval(forwardIntervalId);
+            clearInterval(reverseIntervalId);
+          };
+  }, []);
 
   useEffect(() => {
+    const intervalId = setInterval(() => {
+      setOperations((prevOperations) => {
+        if (prevOperations < targetOperations) {
+          return Math.min(prevOperations + 1, targetOperations); // Increment position
+        } else if (prevOperations > targetOperations) {
+          return Math.max(prevOperations - 1, targetOperations); // Decrement position
+        } else {
+          return prevOperations; // No change if it's already at target
+        }
+      });
+    }, .2); // Adjust this for smoother or faster transition
+
+    return () => clearInterval(intervalId);
+  }, [targetOperations]);
+
+  useEffect(() => {
+    if (animationCompleted) {
     let fetcher = async() => {
                 
       let write = await fetch('http://localhost:9090/api/v1/query?query=rabbitmq_io_write_ops_total');
                 
       const write_object = await write.json()
       const write_result = write_object.data.result[0].value[1]
-      setOperations(write_result)
+      setTargetOperations(write_result)
       }
-
-    const intervalId = setInterval(() => {
-      fetcher();
-    }, 1000);
-    // Cleanup function to clear the interval when the component unmounts
-    return () => {
-      clearInterval(intervalId);
-    };
-  },[operations])
+      const intervalId = setInterval(fetcher, 1000);
+      return () => clearInterval(intervalId);
+  }
+  },[animationCompleted])
 
     const value = operations;
       
@@ -83,7 +131,7 @@ function WriteGraph(){
        {data.map((entry, index) => (
         <Cell key={`cell-${index}`} fill={entry.color} />))}
         </Pie>
-          {needle(value, data, cx, cy, iR, oR, '#2A9D8F')}
+        {animationCompleted ? needle(operations, data, cx, cy, iR, oR, '#264653') : needle(animationValue, data, cx, cy, iR, oR, '#264653')}
           <text x={cx} y={cy + oR + 20} fill="#000" textAnchor="middle" dominantBaseline="central">
           {value}
           </text>
