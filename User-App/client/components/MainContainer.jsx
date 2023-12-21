@@ -10,18 +10,23 @@ function MainContainer() {
     console.log('refreshed')
     setRefresh([])
   }
+  const [runProm, setProm] = useState(false)
 
   // const [running, setRun] = useState(false)
   let intervalId = '';
 
   const stressTest = async (input) => {
+    // clearTimeout(intervalId)
+    
     // console.log('button')
     if(intervalId !== ''){
+      setProm(false);
       console.log('clear')
-      clearTimeout(intervalId)
       intervalId = '';
       return;
     }
+
+    setProm(true)
 
     const username = 'guest';
       const password = 'guest';
@@ -61,8 +66,9 @@ function MainContainer() {
             })
             .then(res => res.json())
             .then(res => {
-              console.log('back from server: ', res)
-              intervalId = setTimeout(tester, 1000)
+              console.log('tester back from server: ', res)
+              // clearInterval(intervalId)  
+              if(runProm) intervalId = setTimeout(tester, 1000)
             })
           }
 
@@ -73,7 +79,7 @@ function MainContainer() {
 
   return (
     <div id='main'>
-      <Configuration refresh={refresh} refreshed={refreshed} stressTest={stressTest} />
+      <Configuration refresh={refresh} refreshed={refreshed} stressTest={stressTest} runProm={runProm}/>
       <FlowChart refresh={refresh} refreshed={refreshed} stressTest={stressTest} />
     </div>
   )

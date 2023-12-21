@@ -4,7 +4,7 @@ import Graph from './MetricTables/Graph'
 import { Routes, Route } from 'react-router-dom'
 
 
-function Metrics({ switcher, refreshed }) {
+function Metrics({ switcher, refreshed, runProm }) {
   const [data, setData] = useState({
     product_name: '',
     product_version: '',
@@ -32,7 +32,7 @@ function Metrics({ switcher, refreshed }) {
       })
       .then(res => res.json())
       .then(res => {
-        console.log('THIS IS THE RESPONSE FROM MANAGEMENT API', res);
+        // console.log('THIS IS THE RESPONSE FROM MANAGEMENT API', res);
         console.log(res.product_name,
         res.product_version,
           res.users[0].name,
@@ -54,10 +54,10 @@ function Metrics({ switcher, refreshed }) {
   return (
     <div id='left-side'>
       <div id='metrics'>
-        <TopContainer data={data}/>
+        <TopContainer data={data} runProm={runProm}/>
           <iframe id='mgmt-api' style={{visibility: `${!switcher ? 'hidden' : 'visible'}`}} src="http://localhost:15672/#/" frameBorder="0"></iframe>
           <div id='bottom-grid' style={{visibility: `${switcher ? 'hidden' : 'visible'}`}}>
-            <Graph />
+            <Graph runProm={runProm} />
             {/* <Graph />
             <Graph />
             <Graph /> */}

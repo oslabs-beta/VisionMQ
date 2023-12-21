@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 
-function Stats( {queus, bindings, selected} ) {
+function Stats( {queus, bindings, selected, runProm} ) {
   const [ready, setReady] = useState(false);
   const [queueINFO, setQueueINFO] = useState({});
 
@@ -20,19 +20,19 @@ function Stats( {queus, bindings, selected} ) {
       // console.log(route, cache[route]) 
       if(cache[bindings[i].routing_key] === 1) {
         if(bindings[i].routing_key[0] === '#') {
-          hashtags.push(<p>• {bindings[i].routing_key}</p>)
+          hashtags.push(<p key={i}>• {bindings[i].routing_key}</p>)
           continue;
         }
-        details.push(<p>• {bindings[i].routing_key}</p>)
+        details.push(<p key={i}>• {bindings[i].routing_key}</p>)
       }
     }
 
     if(selected === bindings[i].destination){
       if(bindings[i].routing_key[0] === '#') {
-          hashtags.push(<p>• {bindings[i].routing_key}</p>)
+          hashtags.push(<p key={i}>• {bindings[i].routing_key}</p>)
           continue;
         }
-      details.push(<p>• {bindings[i].routing_key}</p>)
+      details.push(<p key={i}>• {bindings[i].routing_key}</p>)
     }
 
   }
@@ -43,8 +43,12 @@ const getRate = (prev, current) => {
   return current - prev;
 };
 
+let intervalId;
+
 useEffect(() => {
-  const intervalId = setInterval(async () => {
+  if(runProm)
+  {
+     intervalId = setInterval(async () => {
     try {
       const request = await fetch('http://localhost:9090/api/v1/query?query=rabbitmq_queue_messages');
       const response = await request.json();
@@ -92,12 +96,12 @@ useEffect(() => {
     } catch (error) {
       console.error('Error fetching data:', error);
     }
-  }, 5000);
-
+  }, 1000);
+}
   return () => {
     clearInterval(intervalId);
   };
-}, [selected, queueINFO]);
+}, [selected, queueINFO, runProm]);
 
 
   ////////
@@ -105,9 +109,9 @@ useEffect(() => {
 
   return (
     <div id='stats'>
-      <div className="statistic"><div><h4 id='bindings-header'>{`${selected === 'Overview' ? 'in queues' : 'in queue'}`}</h4></div><h2>{ready ? queueINFO[selected].CURRENTMESSAGES : 'loading...'}</h2></div>
-      <div className="statistic"><div><h4 id='bindings-header'>rate</h4></div><h2>{ready ? `${queueINFO[selected].RATE}/s` : 'loading...'}</h2></div>
-      <div className="statistic"><div><h4 id='bindings-header'>total delivered</h4></div><div id="total-messages"><h2>{ready ? queueINFO[selected].TOTALMESSAGES : 'loading...'}</h2></div></div>
+      <div className="statistic"><div><h4 id='bindings-header'>{`${selected === 'Overview' ? 'in queues' : 'in queue'}`}</h4></div><h2>{ready ? queueINFO[selected].CURRENTMESSAGES : '...'}</h2></div>
+      <div className="statistic"><div><h4 id='bindings-header'>rate</h4></div><h2>{ready ? `${queueINFO[selected].RATE}/s` : '...'}</h2></div>
+      <div className="statistic"><div><h4 id='bindings-header'>total delivered</h4></div><div id="total-messages"><h2>{ready ? queueINFO[selected].TOTALMESSAGES : '...'}</h2></div></div>
       <div className="statistic"><div><h4 id='bindings-header'>bindings</h4></div>
       <div id='bindings-collection'>{details}{hashtags}</div>
       </div>

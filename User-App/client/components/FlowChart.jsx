@@ -22,27 +22,6 @@ import './NodeTypes/nodeStyles/application.scss'
 const initialNodes = [];
 const initialEdges = [];
 
-// const getDefinitions = async () => {
-//       // data = await fetch('/load')
-//       // console.log('we got the data on the front: ', data)
-
-//       const username = 'guest';
-//       const password = 'guest';
-//       const url = 'http://localhost:15672/api/definitions';
-
-//       const base64Credentials = btoa(`${username}:${password}`);
-
-//       let request = await fetch(url, {
-//         method: 'GET',
-//         headers: {
-//           Authorization: `Basic ${base64Credentials}`,
-//           'Content-Type': 'application/json',
-//         },
-//       });
-//       let response = await request.json();
-//       console.log('THIS IS THE RESPONSE FROM MANAGEMENT API', response);
-//       return response;
-//     }
 
 const FlowChart = ({refresh, refreshed, running}) => {
   const nodeTypes = useMemo(() => ({ 
@@ -105,7 +84,7 @@ const FlowChart = ({refresh, refreshed, running}) => {
         })
         .then(res => res.json())
         .then(res => {
-          console.log('THIS IS THE RESPONSE FROM MANAGEMENT API', res);
+          // console.log('THIS IS THE RESPONSE FROM MANAGEMENT API', res);
           data = res;
           
           const queues = [];
@@ -138,7 +117,7 @@ const FlowChart = ({refresh, refreshed, running}) => {
             const yCoor = Math.floor(radius * Math.sin(deg)*1.2);
             
             if(focus === 'all' || el.name == focus){
-              queues.push({ id: `${el.name}`, type: 'queue', position: { x: xCoor*.7 , y: yCoor*.7 }, data: { name: `${el.name}`, offset: bindingCount[el.name], isolate: isolate }})
+              queues.push({ id: `${el.name}`,  type: 'queue', position: { x: xCoor*.7 , y: yCoor*.7 }, data: { name: `${el.name}`, offset: bindingCount[el.name], isolate: isolate }})
             microservices.push({ id: `${i}`, type: 'microservice', position: { x: xCoor+(30) , y: yCoor }, data: { name: `${el.name.slice(0, -5)}`}})
             
             bindings.push({ id: `${el.name}->${i}`, type: 'channel', markerEnd: {
