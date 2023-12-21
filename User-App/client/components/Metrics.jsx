@@ -58,9 +58,6 @@ function Metrics({ switcher, refreshed }) {
           <iframe id='mgmt-api' style={{visibility: `${!switcher ? 'hidden' : 'visible'}`}} src="http://localhost:15672/#/" frameBorder="0"></iframe>
           <div id='bottom-grid' style={{visibility: `${switcher ? 'hidden' : 'visible'}`}}>
             <Graph />
-            <Graph />
-            <Graph />
-            <Graph />
           </div>
           {/* <ul>
               <li>Hide binding labels unless you hover over the queue, and display that nodes data</li>

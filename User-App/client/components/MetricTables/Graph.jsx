@@ -67,21 +67,21 @@ const getRate = (prev,current) => {
           });
           updatedInfo.push(newEntry);
         }
-        console.log('THIS IS THE REPLACEMENT INFORMATION', updatedInfo);
         // Update state with the new array
         setLineData(updatedInfo);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
+    
     // Run fetchData every 1 second
-    // const intervalId = setInterval(() => {
-    //   fetchData();
-    // }, 1000);
-    // // Cleanup function to clear the interval when the component unmounts
-    // return () => {
-    //   clearInterval(intervalId);
-    // };
+    const intervalId = setInterval(() => {
+      fetchData();
+    }, 1000);
+    // Cleanup function to clear the interval when the component unmounts
+    return () => {
+      clearInterval(intervalId);
+    };
   }, [lineData]);
 
 
@@ -89,10 +89,10 @@ const margin = { top: 5, right: 5, bottom: -5, left: -20 }
 const renderLineChart = (
   <ResponsiveContainer height={'100%'} width={'100%'}>
     <LineChart margin={margin} data={lineData}>
-    <Line stroke='red' dataKey='AppQueue' type='monotone'/>
-    <Line stroke='orange' dataKey='InvQueue' type='monotone'/>
-    <Line stroke='green' dataKey='BillQueue' type='monotone'/>
-    <Line stroke='blue' dataKey='AuthQueue' type='monotone'/>
+    <Line stroke='red' dataKey='AppQueue' type='monotone' isAnimationActive={false}/>
+    <Line stroke='orange' dataKey='InvQueue' type='monotone' isAnimationActive={false}/>
+    <Line stroke='green' dataKey='BillQueue' type='monotone' isAnimationActive={false}/>
+    <Line stroke='blue' dataKey='AuthQueue' type='monotone' isAnimationActive={false}/>
       <CartesianGrid stroke="#ccc" />
       <XAxis dataKey="time" />
       <YAxis/>
