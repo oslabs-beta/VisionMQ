@@ -18,9 +18,14 @@ app.use(cookieParser());
 //serves files for the webpack
 app.use('/assets', express.static(path.join(__dirname, './client/assets')));
 
-app.get('/load', promController.getDefinitions, (req, res) => {
-  const definitions = res.locals.definitions;
-  res.status(200).send(definitions);
+// app.get('/load', promController.getDefinitions, (req, res) => {
+//   const definitions = res.locals.definitions;
+//   res.status(200).send(definitions);
+// });
+
+app.post('/roundrobin', promController.roundRobin, (req, res) => {
+  // const definitions = res.locals.definitions;
+  res.status(200).json('great job');
 });
 
 app.use('/', async (req, res) => {

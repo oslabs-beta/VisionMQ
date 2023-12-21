@@ -1,11 +1,15 @@
 /* 
 This test will act as a publisher itself, and connect to the host to send messages to all exchanges, queues, and consumers. 
-The test is a Class that has the following methods: turnOnConsumer, prepTests, runTest, stopTest, takeSnapShot, and updateRoundRobinSuite
+The test is a Class that has the following methods: connectToRabbit, publishMessage, closeConnection, turnOnConsumer, prepTests, runTest, takeSnapShot, and updateRoundRobinSuite.
 
-To create a new instance of the RoundRobin class, you will need to provide the following: rabbitAddress, exchanges, bindings
+This test will send messages to each binding provided in sequential order. 
+
+To create a new instance of the RoundRobin class, you will need to provide the following: rabbitAddress, exchanges, bindings, and a target for how many messages you want to send.
+
   * rabbitAddress is the URL or URL in which the test can connect to the user's RabbitMQ's enviornmnet.
   * exchanges is an array containing objects with information on the exchanges
   * bindings is an array containing objects with the information on all of the bindings 
+  * target is a number, 50k messages take about 1 second, and 100k messages take about 2 seconds. 
 
 examples: 
   rabbitAddress = 'amqp://localhost'
@@ -26,14 +30,14 @@ examples:
       routing_key: 'Auth',
       arguments: {}
     }, {...}, {...}]
-*/ 
+*/
 
 const amqp = require('amqplib');
 
-class roundRobinTest {
-  constructor (rabbitAddress, exchanges, bindings, target) {
+class RoundRobinTest {
+  constructor(rabbitAddress, exchanges, bindings, target) {
     this.rabbitAddress = rabbitAddress;
-    this.exchanges = {}
+    this.exchanges = {};
     this.bindings = bindings;
     this.readyToTest = false;
     this.testMessages = [];
@@ -44,34 +48,40 @@ class roundRobinTest {
     };
     exchanges.forEach((exc) => {
       this.exchanges[exc.name] = exc;
-    })
+    });
     this.target = target;
   }
-  
-  //this method makes the connetion to rabbit 
+
+  //this method makes the connetion to rabbit
   async connectToRabbitMQ() {
     try {
-      this.connection = await amqp.connect(this.rabbitAddress); 
+      this.connection = await amqp.connect(this.rabbitAddress);
       this.channel = await this.connection.createChannel();
       console.log('Connected to amqp');
-
     } catch (error) {
       console.error('Error establishing connection:', error);
       throw error;
     }
-  };
-//publishes a message to the exchange
-  async publishMessage(exchangeName, key, msgObj) { //exchangeType will need to be added back if you need to assert the exchange in the future
+  }
+
+  //publishes a message to the exchange
+  async publishMessage(exchangeName, key, msgObj) {
+    //exchangeType will need to be added back if you need to assert the exchange in the future
     try {
       //await this.channel.assertExchange(exchangeName, exchangeType, { durable: true });
-      this.channel.publish(exchangeName, key, Buffer.from(JSON.stringify(msgObj)));
+      this.channel.publish(
+        exchangeName,
+        key,
+        Buffer.from(JSON.stringify(msgObj))
+      );
       this.totalMessagesSent++;
     } catch (error) {
       console.error('Error publishing message:', error);
       throw error;
     }
-  };
-  //closes the connection to rabbit 
+  }
+
+  //closes the connection to rabbit
   async closeConnection() {
     try {
       if (this.channel) {
@@ -84,10 +94,10 @@ class roundRobinTest {
       console.error('Error closing connection:', error);
       throw error;
     }
-  };
+  }
 
-  //this method needs to be run so it can compile all of the exchanges and bindings in a format to be easily sent to the publisher 
-  prepTests () { 
+  //this method needs to be run so it can compile all of the exchanges and bindings in a format to be easily sent to the publisher
+  prepTests() {
     this.connectToRabbitMQ();
     this.bindings.forEach((binding) => {
       this.testMessages.push({
@@ -96,37 +106,36 @@ class roundRobinTest {
         rabbitAddress: this.rabbitAddress,
         key: binding.routing_key,
         message: this.message,
-      })
-    })
-    this.readyToTest = true; 
+      });
+    });
+    this.readyToTest = true;
   }
 
   //method to begin testing
-  async runTest () { 
+  async runTest() {
     if (this.readyToTest === false) return;
     try {
       if (!this.connection || !this.channel) {
         await this.connectToRabbitMQ();
-        console.log('Starting the round robin test.')
+        console.log('Starting the round robin test.');
       }
       this.start = new Date(Date.now());
-      while(this.totalMessagesSent <= this.target) {
+      while (this.totalMessagesSent <= this.target) {
         this.testMessages.forEach(async (msg) => {
-          await this.publishMessage(msg.exchangeName, msg.key, msg.message) //msg.exchangeType
-        })   
+          await this.publishMessage(msg.exchangeName, msg.key, msg.message); //msg.exchangeType
+        });
       }
       this.takeSnapShot(this.start);
       this.closeConnection();
-      console.log(this.snapShots)
-    }
-    catch (error) {
+      console.log(this.snapShots);
+    } catch (error) {
       console.error('Error running tests:', error);
-    } 
+    }
   }
 
-  //this will take a snapshot of the current testing environment 
-  takeSnapShot (startDate) {
-    console.log('Taking a snapshot.')
+  //this will take a snapshot of the current testing environment
+  takeSnapShot(startDate) {
+    console.log('Taking a snapshot.');
     this.snapShots.push({
       rabbitAddress: this.rabbitAddress,
       exchanges: this.exchanges,
@@ -136,15 +145,17 @@ class roundRobinTest {
       target: this.target,
       start: startDate,
       end: new Date(Date.now()),
-      testDuration: (Date.now()-startDate) / 1000,
-      messageSuccessRate: Math.floor(this.totalMessagesSent/this.target * 100),
+      testDuration: (Date.now() - startDate) / 1000,
+      messageSuccessRate: Math.floor(
+        (this.totalMessagesSent / this.target) * 100
+      ),
     });
-  } 
+  }
 
-  //this method will allow you to completely update your Round Robin test environment 
-  updateRoundRobinSuite (rabbitAddress, exchanges, bindings) {
+  //this method will allow you to completely update your Round Robin test environment
+  updateRoundRobinSuite(rabbitAddress, exchanges, bindings) {
     this.rabbitAddress = rabbitAddress;
-    this.exchanges = {}
+    this.exchanges = {};
     this.bindings = bindings;
     this.readyToTest = false;
     this.testMessages = [];
@@ -154,10 +165,8 @@ class roundRobinTest {
     };
     exchanges.forEach((exc) => {
       this.exchanges[exc.name] = exc;
-    })
+    });
   }
 }
 
-
-
-module.export = roundRobinTest;
+module.exports = RoundRobinTest;
