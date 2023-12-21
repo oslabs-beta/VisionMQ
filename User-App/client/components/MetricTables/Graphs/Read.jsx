@@ -138,9 +138,7 @@ const needle = (value, data, cx, cy, iR, oR, color) => {
           <Cell key={`cell-${index}`} fill={entry.color} />
         ))}
       </Pie>
-      {animationCompleted ? needle(operations, data, 95, 55, iR, oR, '#ff6600') : needle(animationValue, data, 95, 55, iR, oR, '#ff6600')}
-  
-      {/* Display the value of the needle below the pie chart */}
+      {animationCompleted ? needle(operations, data, 95, 55, 50, 50, '#ff6600') : needle(animationValue, data, 95, 55, 50, 50, '#ff6600')}
       
     </PieChart>
     </ResponsiveContainer>
