@@ -358,10 +358,10 @@
   
       #bottom-grid {
         display: flex;
-        flex-wrap: wrap;
+        // flex-wrap: wrap;
         justify-content: center;
         align-items: center;
-        gap: 6%;
+        gap: 3%;
           padding: 3% 0;
           border-radius: 3px;
         
@@ -375,16 +375,13 @@
             border: 1px solid #ff6600;
             border-radius: 3px;
             background-color: white;
-            height: 100%;
+            height: 98%;
             width: 80%;
             padding: 1.5%;
-            // height: 50%;
-            // width: 40%;
             margin-bottom: 1%;
-            // border: 1px solid #ff6600;
-              background-image: radial-gradient(rgba(243, 202, 173, 0.209) 1px, transparent 0);
-              background-size: 6px 6px;
-              background-position: -19.75px -15.5px;
+            background-image: radial-gradient(rgba(243, 202, 173, 0.209) 1px, transparent 0);
+            background-size: 6px 6px;
+            background-position: -19.75px -15.5px;
 
               h4 {
                 color: #ff6600;
@@ -425,6 +422,57 @@
                   // background-color: black;
                 }
               
+          }
+
+          #meter-graphs {
+            height: 100%;
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            gap: 6%;
+            padding: .5% 0;
+
+            // border: 1px solid black;
+          }
+
+          #read-graph {
+            border: 1px solid black;
+            width: 100%;
+            height: 45%;
+            border: 1px solid #ff6600;
+            border-radius: 3px;
+            background-color: white;
+            padding: 3% 4%;
+            margin-bottom: 1%;
+            background-image: radial-gradient(rgba(243, 202, 173, 0.209) 1px, transparent 0);
+            background-size: 6px 6px;
+            background-position: -19.75px -15.5px;
+
+            #read-text {
+              font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+              color: #ff6600;
+              font-weight: 300;
+            }
+          }
+          
+          #write-graph {
+            border: 1px solid black;
+            width: 100%;
+            height: 45%;
+            border: 1px solid #ff6600;
+            border-radius: 3px;
+            background-color: white;
+            padding: 3% 4%;
+            margin-bottom: 1%;
+            background-image: radial-gradient(rgba(243, 202, 173, 0.209) 1px, transparent 0);
+            background-size: 6px 6px;
+            background-position: -19.75px -15.5px;
+
+            #write-text {
+                font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+                color: #ff6600;
+                font-weight: 300;
+              }
           }
       }
     }
