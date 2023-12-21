@@ -62,9 +62,7 @@ function Metrics({ switcher, refreshed, runProm }) {
             <Graph runProm={runProm} />
             {/* <Graph />
             <Graph />
-            <Graph />
-            <Graph />
-            <Graph />
+            <Graph /> */}
           </div>
           {/* <ul>
               <li>Hide binding labels unless you hover over the queue, and display that nodes data</li>
