@@ -52,6 +52,7 @@ module.exports = {
     proxy: {
       '/': 'http://localhost:3005',
       '/load': 'http://localhost:3005',
+      '/roundrobin': 'http://localhost:3005',
       // '/api/*': {
       //   target: 'http://localhost:15672/',
       //   auth: 'guest:guest',

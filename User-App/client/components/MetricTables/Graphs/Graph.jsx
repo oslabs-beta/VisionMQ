@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import {LineChart,Line,XAxis,YAxis,CartesianGrid,Tooltip,ResponsiveContainer} from 'recharts'
+import CustomToolTip from '../CustomTooltip'
 
-function Graph() {
+function Graph({ runProm }) {
   const [lineData,setLineData] = useState([{time:0,InvQueue: 20,AppQueue:20,BillQueue:20,AuthQueue:20},{time:0,InvQueue: 10,AppQueue:10,BillQueue:10,AuthQueue:10}])
-
+  const [time, setTime] = useState(1)
   const queues = {}
 // Function used to calculate the rate of the
 const getRate = (prev,current) => {
     if(current - prev <= 0) return 0
     return current - prev
   }
+  
   useEffect(() => {
+
     const fetchData = async () => {
       try {
         const request = await fetch('http://localhost:9090/api/v1/query?query=rabbitmq_queue_messages');
@@ -43,9 +46,15 @@ const getRate = (prev,current) => {
           });
         } else {
           // Add a new entry
+          // const newTime = Date.now()
+          // const diff = newTime - ogTime
+
           const newEntry = {
-            time: new Date().toLocaleTimeString(),
+            time: `${(Math.floor(time/60))}:${time%60 < 10 ? '0' : ''}${time%60}` //new Date().toLocaleTimeString()
           };
+          setTime(time + 1)
+
+          // ogTime += diff;
           result.forEach(queue => {
             let queueName = queue.metric.queue;
             if (!queueName) queueName = 'TotalOfQueues';
@@ -74,35 +83,38 @@ const getRate = (prev,current) => {
         console.error('Error fetching data:', error);
       }
     };
+    let intervalId;
+    if(runProm)
+    {intervalId = setInterval(() => {
+      fetchData();
+    }, 1000);}
     // Run fetchData every 1 second
-    // const intervalId = setInterval(() => {
-    //   fetchData();
-    // }, 1000);
-    // // Cleanup function to clear the interval when the component unmounts
-    // return () => {
-    //   clearInterval(intervalId);
-    // };
-  }, [lineData]);
+    // Cleanup function to clear the interval when the component unmounts
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [lineData, runProm]);
 
 
-const margin = { top: 5, right: 5, bottom: -5, left: -20 }
+const margin = { top: 20, right: 15, bottom: 0, left: -20 }
 const renderLineChart = (
-  <ResponsiveContainer height={'100%'} width={'100%'}>
-    <LineChart margin={margin} data={lineData}>
-    <Line stroke='red' dataKey='AppQueue' type='monotone'/>
-    <Line stroke='orange' dataKey='InvQueue' type='monotone'/>
-    <Line stroke='green' dataKey='BillQueue' type='monotone'/>
-    <Line stroke='blue' dataKey='AuthQueue' type='monotone'/>
-      <CartesianGrid stroke="#ccc" />
-      <XAxis dataKey="time" />
-      <YAxis/>
-      <Tooltip />
+  <ResponsiveContainer height={'95%'} width={'100%'}>
+    <LineChart id='line-chart' margin={margin} data={lineData}>
+    <Line stroke='#ff6600' dataKey='AppQueue' type='monotone' isAnimationActive={false} />
+    <Line stroke='#ff6600' dataKey='InvQueue' type='monotone' isAnimationActive={false} />
+    <Line stroke='#ff6600' dataKey='BillQueue' type='monotone' isAnimationActive={false}/>
+    <Line stroke='#ff6600' dataKey='AuthQueue' type='monotone' isAnimationActive={false}/>
+      {/* <CartesianGrid stroke="#ccc" strokeDasharray={" 5 5"} vertical={false} /> */}
+      <XAxis dataKey="time" stroke="#ccc"/>
+      <YAxis stroke="#ccc"/>
+      <Tooltip content={<CustomToolTip />}/>
     </LineChart>
   </ResponsiveContainer>
 )
 
   return (
     <div className='graph'>
+      <h4>throughput</h4>
             {renderLineChart}
     </div>
   )

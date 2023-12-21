@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { PieChart, Pie, Cell } from 'recharts';
+import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
       
 function ReadGraph() {
 
@@ -72,7 +72,7 @@ useEffect(() => {
             const fetcher = async () => {
               let read = await fetch('http://localhost:9090/api/v1/query?query=rabbitmq_io_read_ops_total')
               const read_object = await read.json()
-              const read_result = read_object.data.result[0].value[1]
+              const read_result = read_object.data.result[0]?.value[1]
               setTargetOperations(read_result)
             };
       
@@ -83,14 +83,14 @@ useEffect(() => {
 
 const RADIAN = Math.PI / 180;
 const data = [
-  { name: 'A', value: 100, color: '#42B405' },
-  { name: 'B', value: 45, color: '#F58A07' },
-  { name: 'C', value: 25, color: '#F50707' },
+  { name: 'A', value: 100, color: '#f9a66f' },
+  { name: 'B', value: 45, color: '#ff6600' },
+  { name: 'C', value: 25, color: '#000' },
 ];
-const cx = 150;
-const cy = 200;
-const iR = 50;
-const oR = 100;
+const cx = "50%";
+const cy = '70%';
+const iR = 55;
+const oR = 60;
 const value = operations;
 const needle = (value, data, cx, cy, iR, oR, color) => {
   let total = 0;
@@ -116,8 +116,12 @@ const needle = (value, data, cx, cy, iR, oR, color) => {
     ];
   };
 
-  return (
-    <PieChart width={400} height={500}>
+  const renderReadChart = (
+         <ResponsiveContainer  height={'100%'} width={'100%'}>
+      <text id='read-text' x={cx} y={cy} fill="#000" textAnchor="middle" dominantBaseline="central">
+          read:  {value}/s
+          </text>
+    <PieChart  >
       <Pie
         dataKey="value"
         startAngle={180}
@@ -134,16 +138,18 @@ const needle = (value, data, cx, cy, iR, oR, color) => {
           <Cell key={`cell-${index}`} fill={entry.color} />
         ))}
       </Pie>
-      {animationCompleted ? needle(operations, data, cx, cy, iR, oR, '#264653') : needle(animationValue, data, cx, cy, iR, oR, '#264653')}
+      {animationCompleted ? needle(operations, data, 95, 55, iR, oR, '#ff6600') : needle(animationValue, data, 95, 55, iR, oR, '#ff6600')}
   
       {/* Display the value of the needle below the pie chart */}
-      <text x={cx} y={cy + oR + 20} fill="#000" textAnchor="middle" dominantBaseline="central">
-        {value}
-      </text>
-      <text x={cx} y={cy + oR + 5} fill="#000" textAnchor="middle" dominantBaseline="central">
-          Read Operations
-          </text>
+      
     </PieChart>
+    </ResponsiveContainer>
+      )
+
+  return (
+    <div id='read-graph'>
+    {renderReadChart}
+    </div>
   );
 
 }

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import TopContainer from './MetricTables/TopContainer'
-import Graph from './MetricTables/Graph'
-import ReadGraph from './MetricTables/Read'
-import WriteGraph from './MetricTables/Write'
+import Graph from './MetricTables/Graphs/Graph'
+import ReadGraph from './MetricTables/Graphs/Read'
+import WriteGraph from './MetricTables/Graphs/Write'
 import { Routes, Route } from 'react-router-dom'
 
 
-function Metrics({ switcher, refreshed }) {
+function Metrics({ switcher, refreshed, runProm }) {
   const [data, setData] = useState({
     product_name: '',
     product_version: '',
@@ -34,7 +34,7 @@ function Metrics({ switcher, refreshed }) {
       })
       .then(res => res.json())
       .then(res => {
-        console.log('THIS IS THE RESPONSE FROM MANAGEMENT API', res);
+        // console.log('THIS IS THE RESPONSE FROM MANAGEMENT API', res);
         console.log(res.product_name,
         res.product_version,
           res.users[0].name,
@@ -56,22 +56,15 @@ function Metrics({ switcher, refreshed }) {
   return (
     <div id='left-side'>
       <div id='metrics'>
-        <TopContainer data={data}/>
+        <TopContainer data={data} runProm={runProm}/>
           <iframe id='mgmt-api' style={{visibility: `${!switcher ? 'hidden' : 'visible'}`}} src="http://localhost:15672/#/" frameBorder="0"></iframe>
           <div id='bottom-grid' style={{visibility: `${switcher ? 'hidden' : 'visible'}`}}>
-            <Graph />
-            <Graph />
-            <ReadGraph />
-            <WriteGraph />
+            <Graph runProm={runProm} />
+            <div id='meter-graphs'>
+              <ReadGraph />
+              <WriteGraph />
+            </div>
           </div>
-          {/* <ul>
-              <li>Hide binding labels unless you hover over the queue, and display that nodes data</li>
-              <li>Make page refresh and adjust other nodes when new ones are added</li>
-              <li>Make boxes on this side for metrics</li>
-              <li>eh Possibly add secondary view between services not using exhcnage</li>
-              <li>DONE When you click a node, it hides any nodes that that nodes edges aren't touching</li>
-              <br></br>
-            </ul> */}
         </div>
     </div>
   )

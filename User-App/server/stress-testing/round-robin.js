@@ -30,14 +30,14 @@ examples:
       routing_key: 'Auth',
       arguments: {}
     }, {...}, {...}]
-*/ 
+*/
 
 const amqp = require('amqplib');
 
 class RoundRobinTest {
-  constructor (rabbitAddress, exchanges, bindings, target) {
+  constructor(rabbitAddress, exchanges, bindings, target) {
     this.rabbitAddress = rabbitAddress;
-    this.exchanges = {}
+    this.exchanges = {};
     this.bindings = bindings;
     this.readyToTest = false;
     this.testMessages = [];
@@ -48,36 +48,40 @@ class RoundRobinTest {
     };
     exchanges.forEach((exc) => {
       this.exchanges[exc.name] = exc;
-    })
+    });
     this.target = target;
   }
-  
-  //this method makes the connetion to rabbit 
+
+  //this method makes the connetion to rabbit
   async connectToRabbitMQ() {
     try {
-      this.connection = await amqp.connect(this.rabbitAddress); 
+      this.connection = await amqp.connect(this.rabbitAddress);
       this.channel = await this.connection.createChannel();
       console.log('Connected to amqp');
-
     } catch (error) {
       console.error('Error establishing connection:', error);
       throw error;
     }
-  };
+  }
 
-//publishes a message to the exchange
-  async publishMessage(exchangeName, key, msgObj) { //exchangeType will need to be added back if you need to assert the exchange in the future
+  //publishes a message to the exchange
+  async publishMessage(exchangeName, key, msgObj) {
+    //exchangeType will need to be added back if you need to assert the exchange in the future
     try {
       //await this.channel.assertExchange(exchangeName, exchangeType, { durable: true });
-      this.channel.publish(exchangeName, key, Buffer.from(JSON.stringify(msgObj)));
+      this.channel.publish(
+        exchangeName,
+        key,
+        Buffer.from(JSON.stringify(msgObj))
+      );
       this.totalMessagesSent++;
     } catch (error) {
       console.error('Error publishing message:', error);
       throw error;
     }
-  };
+  }
 
-  //closes the connection to rabbit 
+  //closes the connection to rabbit
   async closeConnection() {
     try {
       if (this.channel) {
@@ -90,10 +94,10 @@ class RoundRobinTest {
       console.error('Error closing connection:', error);
       throw error;
     }
-  };
+  }
 
-  //this method needs to be run so it can compile all of the exchanges and bindings in a format to be easily sent to the publisher 
-  prepTests () { 
+  //this method needs to be run so it can compile all of the exchanges and bindings in a format to be easily sent to the publisher
+  prepTests() {
     this.connectToRabbitMQ();
     this.bindings.forEach((binding) => {
       this.testMessages.push({
@@ -102,37 +106,36 @@ class RoundRobinTest {
         rabbitAddress: this.rabbitAddress,
         key: binding.routing_key,
         message: this.message,
-      })
-    })
-    this.readyToTest = true; 
+      });
+    });
+    this.readyToTest = true;
   }
 
   //method to begin testing
-  async runTest () { 
+  async runTest() {
     if (this.readyToTest === false) return;
     try {
       if (!this.connection || !this.channel) {
         await this.connectToRabbitMQ();
-        console.log('Starting the round robin test.')
+        console.log('Starting the round robin test.');
       }
       this.start = new Date(Date.now());
-      while(this.totalMessagesSent <= this.target) {
+      while (this.totalMessagesSent <= this.target) {
         this.testMessages.forEach(async (msg) => {
-          await this.publishMessage(msg.exchangeName, msg.key, msg.message) //msg.exchangeType
-        })   
+          await this.publishMessage(msg.exchangeName, msg.key, msg.message); //msg.exchangeType
+        });
       }
       this.takeSnapShot(this.start);
       this.closeConnection();
-      console.log(this.snapShots)
-    }
-    catch (error) {
+      console.log(this.snapShots);
+    } catch (error) {
       console.error('Error running tests:', error);
-    } 
+    }
   }
 
-  //this will take a snapshot of the current testing environment 
-  takeSnapShot (startDate) {
-    console.log('Taking a snapshot.')
+  //this will take a snapshot of the current testing environment
+  takeSnapShot(startDate) {
+    console.log('Taking a snapshot.');
     this.snapShots.push({
       rabbitAddress: this.rabbitAddress,
       exchanges: this.exchanges,
@@ -142,15 +145,17 @@ class RoundRobinTest {
       target: this.target,
       start: startDate,
       end: new Date(Date.now()),
-      testDuration: (Date.now()-startDate) / 1000,
-      messageSuccessRate: Math.floor(this.totalMessagesSent/this.target * 100),
+      testDuration: (Date.now() - startDate) / 1000,
+      messageSuccessRate: Math.floor(
+        (this.totalMessagesSent / this.target) * 100
+      ),
     });
-  } 
+  }
 
-  //this method will allow you to completely update your Round Robin test environment 
-  updateRoundRobinSuite (rabbitAddress, exchanges, bindings) {
+  //this method will allow you to completely update your Round Robin test environment
+  updateRoundRobinSuite(rabbitAddress, exchanges, bindings) {
     this.rabbitAddress = rabbitAddress;
-    this.exchanges = {}
+    this.exchanges = {};
     this.bindings = bindings;
     this.readyToTest = false;
     this.testMessages = [];
@@ -160,10 +165,8 @@ class RoundRobinTest {
     };
     exchanges.forEach((exc) => {
       this.exchanges[exc.name] = exc;
-    })
+    });
   }
 }
 
-
-
-module.export = roundRobinTest;
+module.exports = RoundRobinTest;

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Stats from "./Stats"
 import PubSub from "./PubSub"
 
-function TopContainer({ data }) {
+function TopContainer({ data, runProm }) {
   const [selected, setSelected] = useState('Overview')
 
   const select = (e) => {
@@ -20,7 +20,7 @@ function TopContainer({ data }) {
       <div id='rabbit-elements'>
         <PubSub queues={data.queues} bindings={data.bindings} select={select} selected={selected}/>
         <div className='vert-divider'></div>
-        <Stats queues={data.queues} bindings={data.bindings} selected={selected}/>
+        <Stats queues={data.queues} bindings={data.bindings} selected={selected} runProm={runProm}/>
       </div>
     </div>
   )

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { PieChart, Pie, Cell } from 'recharts';
+import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
       
 function WriteGraph(){
 
@@ -68,7 +68,7 @@ useEffect(() => {
       let write = await fetch('http://localhost:9090/api/v1/query?query=rabbitmq_io_write_ops_total');
                 
       const write_object = await write.json()
-      const write_result = write_object.data.result[0].value[1]
+      const write_result = write_object.data.result[0]?.value[1]
       setTargetOperations(write_result)
       }
       const intervalId = setInterval(fetcher, 1000);
@@ -80,14 +80,14 @@ useEffect(() => {
       
     const RADIAN = Math.PI / 180;
     const data = [
-        { name: 'A', value: 100, color: '#42B405' },
-        { name: 'B', value: 45, color: '#F58A07' },
-        { name: 'C', value: 25, color: '#F50707' },
+        { name: 'A', value: 100, color: '#f9a66f' },
+        { name: 'B', value: 45, color: '#ff6600' },
+        { name: 'C', value: 25, color: '#000' },
       ];
-      const cx = 150;
-      const cy = 200;
-      const iR = 50;
-      const oR = 100;
+      const cx = "50%";
+      const cy = '70%';
+      const iR = 55;
+      const oR = 60;
       const needle = (value, data, cx, cy, iR, oR, color) => {
         let total = 0;
         data.forEach((v) => {
@@ -112,10 +112,13 @@ useEffect(() => {
           <path d={`M${xba} ${yba}L${xbb} ${ybb} L${xp} ${yp} L${xba} ${yba}`} stroke="#none" fill={color} />,
         ];
       };
-    
 
-  return (
-    <PieChart width={400} height={500}>
+      const renderWriteChart = (
+        <ResponsiveContainer width={'100%'} height={'100%'}>
+          <text id='write-text' x={cx} y={cy} fill="#000" textAnchor="middle" dominantBaseline="central">
+          write:  {value}/s
+          </text>
+      <PieChart  >
       <Pie
        dataKey="value"
        startAngle={180}
@@ -131,14 +134,16 @@ useEffect(() => {
        {data.map((entry, index) => (
         <Cell key={`cell-${index}`} fill={entry.color} />))}
         </Pie>
-        {animationCompleted ? needle(operations, data, cx, cy, iR, oR, '#264653') : needle(animationValue, data, cx, cy, iR, oR, '#264653')}
-          <text x={cx} y={cy + oR + 20} fill="#000" textAnchor="middle" dominantBaseline="central">
-          {value}
-          </text>
-          <text x={cx} y={cy + oR + 5} fill="#000" textAnchor="middle" dominantBaseline="central">
-          Write Operations
-          </text>
+        {animationCompleted ? needle(operations, data, 95, 55, iR, oR, '#ff6600') : needle(animationValue, data, 95, 55, iR, oR, '#ff6600')}
             </PieChart>
+            </ResponsiveContainer>
+      )
+    
+
+  return (
+    <div id='write-graph'>
+      {renderWriteChart}
+    </div>
           );
   } 
 

@@ -148,7 +148,7 @@ class RandomTest {
   } 
 
   //this method will allow you to completely update your Round Robin test environment 
-  updateRoundRobinSuite (rabbitAddress, exchanges, bindings) {
+  updateRandomSuite (rabbitAddress, exchanges, bindings) {
     this.rabbitAddress = rabbitAddress;
     this.exchanges = {}
     this.bindings = bindings;
