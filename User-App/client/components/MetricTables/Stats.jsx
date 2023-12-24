@@ -19,7 +19,7 @@ function Stats( {queus, bindings, selected, runProm} ) {
       cache[route] = !(cache[route]) ? 1 : cache[route] + 1;
       // console.log(route, cache[route]) 
       if(cache[bindings[i].routing_key] === 1) {
-        if(bindings[i].routing_key[0] === '#') {
+        if(bindings[i].routing_key[0] === '#' || bindings[i].routing_key[0] === '*' ){
           hashtags.push(<p key={i}>• {bindings[i].routing_key}</p>)
           continue;
         }
@@ -109,9 +109,9 @@ useEffect(() => {
 
   return (
     <div id='stats'>
-      <div className="statistic"><div><h4 id='bindings-header'>{`${selected === 'Overview' ? 'in queues' : 'in queue'}`}</h4></div><h2>{ready ? queueINFO[selected].CURRENTMESSAGES : '...'}</h2></div>
-      <div className="statistic"><div><h4 id='bindings-header'>rate</h4></div><h2>{ready ? `${queueINFO[selected].RATE}/s` : '...'}</h2></div>
-      <div className="statistic"><div><h4 id='bindings-header'>total delivered</h4></div><div id="total-messages"><h2>{ready ? queueINFO[selected].TOTALMESSAGES : '...'}</h2></div></div>
+      <div className="statistic"><div><h4 id='bindings-header'>{`${selected === 'Overview' ? 'in queues' : 'in queue'}`}</h4></div><h2>{ready ? queueINFO[selected].CURRENTMESSAGES : '12,681'}</h2></div>
+      <div className="statistic"><div><h4 id='bindings-header'>rate</h4></div><h2>{ready ? `${queueINFO[selected].RATE}/s` : '246/s'}</h2></div>
+      <div className="statistic"><div><h4 id='bindings-header'>total delivered</h4></div><div id="total-messages"><h2>{ready ? queueINFO[selected].TOTALMESSAGES : '140,506'}</h2></div></div>
       <div className="statistic"><div><h4 id='bindings-header'>bindings</h4></div>
       <div id='bindings-collection'>{details}{hashtags}</div>
       </div>

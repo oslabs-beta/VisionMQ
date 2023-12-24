@@ -186,7 +186,7 @@ const FlowChart = ({refresh, refreshed, running}) => {
           fitView
         >
           <Controls />
-          <MiniMap />
+          <MiniMap pannable={true} zoomable={true} nodeColor={'#ff6600'}/>
           <Background variant="dots" gap={12} size={1} />
         </ReactFlow>
       </div>

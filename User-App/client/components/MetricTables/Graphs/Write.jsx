@@ -115,9 +115,9 @@ useEffect(() => {
 
       const renderWriteChart = (
         <ResponsiveContainer width={'100%'} height={'100%'}>
-          <text id='write-text' x={cx} y={cy} fill="#000" textAnchor="middle" dominantBaseline="central">
+          <p id='write-text' x={cx} y={cy} fill="#000" textAnchor="middle" dominantBaseline="central">
           write:  {value}/s
-          </text>
+          </p>
       <PieChart  >
       <Pie
        dataKey="value"

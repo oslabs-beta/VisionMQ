@@ -118,9 +118,9 @@ const needle = (value, data, cx, cy, iR, oR, color) => {
 
   const renderReadChart = (
          <ResponsiveContainer  height={'100%'} width={'100%'}>
-      <text id='read-text' x={cx} y={cy} fill="#000" textAnchor="middle" dominantBaseline="central">
+      <p id='read-text' x={cx} y={cy} fill="#000" textAnchor="middle" dominantBaseline="central">
           read:  {value}/s
-          </text>
+          </p>
     <PieChart  >
       <Pie
         dataKey="value"

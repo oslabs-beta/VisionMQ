@@ -18,14 +18,14 @@
   padding: 1.5%;
 
   background: rgba(251, 251, 251, 0.248);
-  //   background-image: radial-gradient(rgba(243, 202, 173, 0.337) 1px, transparent 0);
-  //   background-size: 5px 5px;
-  //   background-position: -19px -19px;
+    // background-image: radial-gradient(rgba(243, 202, 173, 0.337) 1px, transparent 0);
+    // background-size: 5px 5px;
+    // background-position: -19px -19px;
 }
 
 #configuration {
   height: 100%;
-  width: 100%;
+  width: 50%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -38,6 +38,7 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1.5%;
+    width: 49vw;
     
     #logos {
       display: flex;
@@ -321,6 +322,7 @@
                   flex-wrap: wrap;
                   margin-left: 7%;
                   width: 70%;
+                  overflow: scroll;
 
                   p {
                     // border: .5px solid black;
@@ -484,7 +486,7 @@
 #chart {
   // border: 1px solid black;
   height: 100%;
-  width: 100%;
+  width: 50%;
   margin-left: 1.5%;
   // padding: 1.5%;
 
