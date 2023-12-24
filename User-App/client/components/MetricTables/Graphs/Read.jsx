@@ -66,13 +66,13 @@ useEffect(() => {
           return () => clearInterval(intervalId)
         }, [targetOperations])
       
-        //Fetches data
+        //Fetches data`
         useEffect(() => {
           if (animationCompleted) {
             const fetcher = async () => {
               let read = await fetch('http://localhost:9090/api/v1/query?query=rabbitmq_io_read_ops_total')
               const read_object = await read.json()
-              const read_result = read_object.data.result[0]?.value[1]
+              let read_result = read_object.data.result[0]?.value[1]
               setTargetOperations(read_result)
             };
       
@@ -138,9 +138,7 @@ const needle = (value, data, cx, cy, iR, oR, color) => {
           <Cell key={`cell-${index}`} fill={entry.color} />
         ))}
       </Pie>
-      {animationCompleted ? needle(operations, data, 95, 55, iR, oR, '#ff6600') : needle(animationValue, data, 95, 55, iR, oR, '#ff6600')}
-  
-      {/* Display the value of the needle below the pie chart */}
+      {animationCompleted ? needle(operations, data, 95, 55, 50, 50, '#ff6600') : needle(animationValue, data, 95, 55, 50, 50, '#ff6600')}
       
     </PieChart>
     </ResponsiveContainer>

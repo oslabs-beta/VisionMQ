@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
-      
+import { useMeasure } from "react-use";
+import { useRef } from "react";
+
 function WriteGraph(){
 
 const [operations, setOperations] = useState(0);
+const [displayVal, setDisplayVal] = useState(0);
 const [targetOperations, setTargetOperations] = useState(0);
 const [animationValue, setAnimationValue] = useState(0);
 const [animationCompleted, setAnimationCompleted] = useState(false);
@@ -11,7 +14,6 @@ const [animationCompleted, setAnimationCompleted] = useState(false);
 useEffect(() => {
  let value = 0;
   const increment = 1;
-  const animationDuration = 9000;
   const animationInterval = 4;
   const maxValue = 172;
   let forward, reverse;
@@ -68,24 +70,33 @@ useEffect(() => {
       let write = await fetch('http://localhost:9090/api/v1/query?query=rabbitmq_io_write_ops_total');
                 
       const write_object = await write.json()
-      const write_result = write_object.data.result[0]?.value[1]
-      setTargetOperations(write_result)
+      let write_result = write_object.data.result[0]?.value[1] 
+      setDisplayVal(write_result)
+      let gauge = write_result
+      setTargetOperations(gauge)
       }
       const intervalId = setInterval(fetcher, 1000);
       return () => clearInterval(intervalId);
   }
   },[animationCompleted])
 
-    const value = operations;
-      
+
+  const ref = useRef(null);
+
+  const measure = useMeasure({
+    ref,
+    updateOnWindowResize: true
+  });
+
+
     const RADIAN = Math.PI / 180;
     const data = [
         { name: 'A', value: 100, color: '#f9a66f' },
         { name: 'B', value: 45, color: '#ff6600' },
         { name: 'C', value: 25, color: '#000' },
       ];
-      const cx = "50%";
-      const cy = '70%';
+      const cx = "50%";//x position of gauge in its div
+      const cy = '70%';//y position of guage in its div
       const iR = 55;
       const oR = 60;
       const needle = (value, data, cx, cy, iR, oR, color) => {
@@ -97,8 +108,8 @@ useEffect(() => {
         const length = (iR + 2 * oR) / 3;
         const sin = Math.sin(-RADIAN * ang);
         const cos = Math.cos(-RADIAN * ang);
-        const r = 5;
-        const x0 = cx + 5;
+        const r = 5;//radius of needle ball
+        const x0 = 100//x position of needle ball
         const y0 = cy + 5;
         const xba = x0 + r * sin;
         const yba = y0 - r * cos;
@@ -116,7 +127,7 @@ useEffect(() => {
       const renderWriteChart = (
         <ResponsiveContainer width={'100%'} height={'100%'}>
           <text id='write-text' x={cx} y={cy} fill="#000" textAnchor="middle" dominantBaseline="central">
-          write:  {value}/s
+          write:  {operations}/s
           </text>
       <PieChart  >
       <Pie
@@ -134,7 +145,7 @@ useEffect(() => {
        {data.map((entry, index) => (
         <Cell key={`cell-${index}`} fill={entry.color} />))}
         </Pie>
-        {animationCompleted ? needle(operations, data, 95, 55, iR, oR, '#ff6600') : needle(animationValue, data, 95, 55, iR, oR, '#ff6600')}
+        {animationCompleted ? needle(operations, data, 95, 55, 50, 50, '#ff6600') : needle(animationValue, data, 95, 55, 50, 50, '#ff6600')}
             </PieChart>
             </ResponsiveContainer>
       )
