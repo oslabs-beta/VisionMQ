@@ -96,7 +96,7 @@ class RoundRobinTest {
     }
   }
 
-  //this method needs to be run so it can compile all of the exchanges and bindings in a format to be easily sent to the publisher
+  // this method needs to run so it can compile all of the exchanges and bindings in a format to be sent to the publisher
   prepTests() {
     this.connectToRabbitMQ();
     this.bindings.forEach((binding) => {
