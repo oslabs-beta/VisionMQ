@@ -48,7 +48,7 @@ let intervalId;
 useEffect(() => {
   if(runProm)
   {
-     intervalId = setInterval(async () => {
+  intervalId = setInterval(async () => {
     try {
       const request = await fetch('http://localhost:9090/api/v1/query?query=rabbitmq_queue_messages');
       const response = await request.json();
