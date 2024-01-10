@@ -10,7 +10,7 @@ function MainContainer() {
     console.log('refreshed')
     setRefresh([])
   }
-  const [runProm, setProm] = useState(false)
+  const [runProm, setProm] = useState(true)
 
   // const [running, setRun] = useState(false)
   let intervalId = '';

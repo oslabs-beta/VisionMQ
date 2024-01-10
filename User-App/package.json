@@ -6,7 +6,7 @@
     "start": "NODE_ENV=production nodemon server/server.js",
     "build": "NODE_ENV=production webpack",
     "dev": "NODE_ENV=development webpack serve & NODE_ENV=development nodemon server/server.js",
-    "test": "test"
+    "test": "electron ../main.js & NODE_ENV=development webpack serve & NODE_ENV=development nodemon server/server.js"
   },
   "nodemonConfig": {
     "ignore": [
@@ -43,6 +43,7 @@
     "babel-loader": "^8.2.3",
     "copy-webpack-plugin": "^10.2.0",
     "css-loader": "^6.5.1",
+    "electron": "^28.0.0",
     "eslint": "^8.53.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.4",
