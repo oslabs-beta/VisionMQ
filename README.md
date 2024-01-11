@@ -1,10 +1,10 @@
 # visionmq
 
-The following instructions are assumed for a MacOS system, we will be updating this README for other OS very soon.
+The following instructions are assumed for a MacOS system, we will be updating this README for other OS soon.
 
 <img src="https://github.com/oslabs-beta/VisionMQ/assets/146690609/2b1b6e67-03d0-44aa-98f3-096195d63866">
 
----
+
 
 ### First thing, clone the repo to your local machine:
 
