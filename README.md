@@ -1,11 +1,13 @@
-# visionmq
+# Welcome to VisionMQ!
+### You will be downloading RabbitMQ and Prometheus. If these are already on your system, please skip the relevant sections. Follow the instructions below to get started:
 
-The following instructions are assumed for a MacOS system, we will be updating this README for other OS soon.
+
+
 
 <img src="https://github.com/oslabs-beta/VisionMQ/assets/146690609/2b1b6e67-03d0-44aa-98f3-096195d63866">
 
 
-
+The following instructions are for a MacOS system, we will be updating this README for other OS soon.
 ### First thing, clone the repo to your local machine:
 
 
@@ -95,18 +97,11 @@ Run Prometheus:
 -   Start or restart your local instance of Prometheus.
  ---
 
-### Configure Enviornment Variables Needed:
+### Change Login Credentials:
 
--   Create an .env file at the root level of the VisionMQ directory.
--   Add the following variables to the env file:
+-   By default, credentials are assumed to be the default RabbitMQ guest/guest.
+-   If yours are different, search for "guest" and replace with your own username and password.
 
-```jsx
-RABBIT_USERNAME = "guest"
-RABBIT_PASSWORD = "guest"
-RABBIT_URL = "<http://localhost:15672/api/definitions>"
-```
-
--   If you have configured custom credentials for your RabbitMQ Management API, change the values of these environment variables.
  ---
 ### Let's run!
 
