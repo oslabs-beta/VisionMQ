@@ -7,7 +7,7 @@ The following instructions are assumed for a MacOS system, we will be updating t
 ### First thing, clone the repo to your local machine:
 
 
-`git clone <https://github.com/oslabs-beta/VisionMQ.git`>
+`git clone https://github.com/oslabs-beta/VisionMQ.git`
 
 --- 
 
@@ -27,7 +27,7 @@ Please follow the instructions at the following link to download RabbitMQ:
 
 We used `homebrew` and this is how we did it:
 
--   Download homebrew if you don’t have it on your system: —link
+-   Download homebrew if you don’t have it on your system: https://brew.sh/
 -   Update homebrew if needed: `brew update`
 
 `brew install rabbitmq` (this might take a second…)
@@ -40,19 +40,23 @@ You can do this with the following steps:
     
    Move the config file: `mv ./rabbitmq.conf *<file path>*`
     
-   >the file path is:
+   - The file path is:
     
-    `cd /usr/local/opt/rabbitmq/sbin` for for Intel Macs
+        `cd /usr/local/opt/rabbitmq/sbin` for Intel Macs
     
-    `cd /opt/homebrew/etc/` for Apple Silicon Macs
+        `cd /opt/homebrew/etc/` for Apple Silicon Macs
+    
 ---
 
 ### Once you have RabbitMQ and have updated your config file:
 
-Enable management API:
+Enable RabbitMQ Management API:
 
--   Locate the sbin folder with in the following route:
--   `/usr/local/Cellar/rabbmitmq/*<version>*/sbin`
+- Locate the sbin folder with in the following route:
+    
+    `/usr/local/Cellar/rabbmitmq/*<version>*/sbin` for Intel Macs
+    
+    `/opt/homebrew/opt/rabbitmq/sbin` for Apple Silicon Macs
 
 Run the following:
 
@@ -77,7 +81,14 @@ Download Prometheus: [https://prometheus.io/download/](https://prometheus.io/dow
 Run Prometheus:
 
 -   Click prometheus.exe to open it (if it fails to run, make sure to enable it as a developer in your security settings)
--   Move the code from the `prometheus.yml` file from this repository into your YML file for your local instance of Prometheus by running: `mv ./prometheus.yml *<file path>*`
+-   Move the code from the `prometheus.yml` file from this repository into your YML file for your local instance of Prometheus by running: `mv ./prometheus.yml *<file path>*` 
+- If you already have Prometheus, copy the following into your existing YML file, as an element into the scraped_configs array:
+
+        - job_name: 'rabbit-per'
+            static_configs:
+              - targets: ['localhost:15692']
+            metrics_path: '/metrics/per-object'
+    
 -   Start or restart your local instance of Prometheus.
  ---
 
