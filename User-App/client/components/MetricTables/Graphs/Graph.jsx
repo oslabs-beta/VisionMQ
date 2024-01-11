@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import {LineChart,Line,XAxis,YAxis,CartesianGrid,Tooltip,ResponsiveContainer} from 'recharts'
+import {LineChart,Line,XAxis,YAxis,Tooltip,ResponsiveContainer} from 'recharts'
 import CustomToolTip from '../CustomTooltip'
 
 function Graph({ runProm }) {
-  const [lineData,setLineData] = useState([{time:0,InvQueue: 20,AppQueue:20,BillQueue:20,AuthQueue:20},{time:0,InvQueue: 10,AppQueue:10,BillQueue:10,AuthQueue:10}])
+  const [lineData,setLineData] = useState([{time:0,InvQueue: 0,AppQueue:0,BillQueue:0,AuthQueue:0}])
   const [time, setTime] = useState(1)
   const queues = {}
 // Function used to calculate the rate of the

@@ -70,12 +70,9 @@ useEffect(() => {
       let write = await fetch('http://localhost:9090/api/v1/query?query=rabbitmq_io_write_ops_total');
                 
       const write_object = await write.json()
-      let write_result = write_object.data.result[0]?.value[1]
+      let write_result = write_object.data.result[0]?.value[1] 
       setDisplayVal(write_result)
       let gauge = write_result
-      if(gauge > 172){
-        gauge = 172
-      }
       setTargetOperations(gauge)
       }
       const intervalId = setInterval(fetcher, 1000);
