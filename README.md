@@ -2,7 +2,7 @@
 
 VisionMQ is an observability tool for the message broker, RabbitMQ. Using Vision you'll be able to model and display micro-service applications, tracking overall health of messaging queues, successful deliveries and network pain points.
 
-##### <i>To read more about the VisionMQ's background, [read our medium article](https://medium.com/@clynnfrench/observability-in-rabbitmq-heres-our-experience-with-visionmq-v1-0-b82a61b1983b)!</i>
+##### <i>To read more about VisionMQ's background, [read our medium article](https://medium.com/@clynnfrench/observability-in-rabbitmq-heres-our-experience-with-visionmq-v1-0-b82a61b1983b)!</i>
 
 ### Disclaimer
 VisionMQ is in early stages of development. Please let us know of any questions or concerns. You are more than welcome to open issues or pull requests to contribute to the growth of the project. This was built for the RabbitMQ community and we want it to be a helpful tool!
