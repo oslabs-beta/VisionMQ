@@ -1,12 +1,24 @@
-# visionmq
+# Welcome to VisionMQ!
 
-The following instructions are assumed for a MacOS system, we will be updating this README for other OS very soon.
+VisionMQ is an observability tool for the message broker, RabbitMQ. Using Vision you'll be able to model and display micro-service applications, tracking overall health of messaging queues, successful deliveries and network pain points.
+
+##### <i>To read more about VisionMQ's background, [read our medium article](https://medium.com/@clynnfrench/observability-in-rabbitmq-heres-our-experience-with-visionmq-v1-0-b82a61b1983b)!</i>
+
+### Disclaimer
+VisionMQ is in early stages of development. Please let us know of any questions or concerns. You are more than welcome to open issues or pull requests to contribute to the growth of the project. This was built for the RabbitMQ community and we want it to be a helpful tool!
+
+### Let's Get Started
+
+#### To begin, you will be downloading RabbitMQ and Prometheus. If these are already on your system, please skip the relevant sections. 
+
+
+
 
 <img src="https://github.com/oslabs-beta/VisionMQ/assets/146690609/2b1b6e67-03d0-44aa-98f3-096195d63866">
 
----
 
-### First thing, clone the repo to your local machine:
+The following instructions are for a MacOS system, we will be updating this README for other OS soon.
+### First thing, pull down the repo to your local machine:
 
 
 
@@ -61,7 +73,7 @@ Enable RabbitMQ Management API:
     
     `/opt/homebrew/opt/rabbitmq/sbin` for Apple Silicon Macs
 
-Run the following:
+Enable Management API:
 
 `./rabbitmq-plugins enable rabbitmq_management`
 
@@ -95,18 +107,11 @@ Run Prometheus:
 -   Start or restart your local instance of Prometheus.
  ---
 
-### Configure Enviornment Variables Needed:
+### Change Login Credentials:
 
--   Create an .env file at the root level of the VisionMQ directory.
--   Add the following variables to the env file:
+-   By default, credentials are assumed to be the default RabbitMQ guest/guest.
+-   If yours are different, search for "guest" and replace with your own username and password.
 
-```jsx
-RABBIT_USERNAME = "guest"
-RABBIT_PASSWORD = "guest"
-RABBIT_URL = "<http://localhost:15672/api/definitions>"
-```
-
--   If you have configured custom credentials for your RabbitMQ Management API, change the values of these environment variables.
  ---
 ### Let's run!
 
