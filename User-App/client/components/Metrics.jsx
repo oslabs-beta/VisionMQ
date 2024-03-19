@@ -61,8 +61,8 @@ function Metrics({ switcher, refreshed, runProm }) {
           <div id='bottom-grid' style={{visibility: `${switcher ? 'hidden' : 'visible'}`}}>
             <Graph runProm={runProm} />
             <div id='meter-graphs'>
-              <ReadGraph />
-              <WriteGraph />
+              {/* <ReadGraph />
+              <WriteGraph /> */}
             </div>
           </div>
         </div>

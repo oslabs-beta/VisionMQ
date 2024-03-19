@@ -11,7 +11,7 @@ const getRate = (prev,current) => {
     if(current - prev <= 0) return 0
     return current - prev
   }
-  
+  /*
   useEffect(() => {
 
     const fetchData = async () => {
@@ -95,7 +95,7 @@ const getRate = (prev,current) => {
     };
   }, [lineData, runProm]);
 
-
+*/
 const margin = { top: 20, right: 15, bottom: 0, left: -20 }
 const renderLineChart = (
   <ResponsiveContainer height={'95%'} width={'100%'}>

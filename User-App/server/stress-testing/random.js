@@ -1,6 +1,6 @@
 /* 
 This test will act as a publisher itself, and connect to the host to send messages to all exchanges, queues, and consumers. 
-The test is a Class that has the following methods: connectToRabbit, publishMessage, closeConnection, turnOnConsumer, prepTests, runTest, takeSnapShot, and updateRoundRobinSuite.
+The test is a Class that has the following methods: connectToRabbit, publishMessage, closeConnection, turnOnConsumer, prepTests, runTest, takeSnapShot, and updateRandomSuite.
 
 This test will generate a random number from 0 to the number of bindings provided, and randomly send a message to that binding. Then it will reset the random number, and send a message to a different, random binding. 
 
@@ -147,7 +147,7 @@ class RandomTest {
     });
   } 
 
-  //this method will allow you to completely update your Round Robin test environment 
+  //this method will allow you to completely update your Random test environment 
   updateRandomSuite (rabbitAddress, exchanges, bindings) {
     this.rabbitAddress = rabbitAddress;
     this.exchanges = {}

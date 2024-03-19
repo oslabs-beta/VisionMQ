@@ -51,35 +51,35 @@ useEffect(() => {
         }, []);
 
         //Needle mover
-        useEffect(() => {
-          const intervalId = setInterval(() => {
-            setOperations((prevOperations) => {
-              if (prevOperations < targetOperations) {
-                return Math.min(prevOperations + 1, targetOperations)
-              } else if (prevOperations > targetOperations) {
-                return Math.max(prevOperations - 1, targetOperations)
-              } else {
-                return prevOperations
-              }
-            })
-          }, .2)
-          return () => clearInterval(intervalId)
-        }, [targetOperations])
+        // useEffect(() => {
+        //   const intervalId = setInterval(() => {
+        //     setOperations((prevOperations) => {
+        //       if (prevOperations < targetOperations) {
+        //         return Math.min(prevOperations + 1, targetOperations)
+        //       } else if (prevOperations > targetOperations) {
+        //         return Math.max(prevOperations - 1, targetOperations)
+        //       } else {
+        //         return prevOperations
+        //       }
+        //     })
+        //   }, .2)
+        //   return () => clearInterval(intervalId)
+        // }, [targetOperations])
       
-        //Fetches data`
-        useEffect(() => {
-          if (animationCompleted) {
-            const fetcher = async () => {
-              let read = await fetch('http://localhost:9090/api/v1/query?query=rabbitmq_io_read_ops_total')
-              const read_object = await read.json()
-              let read_result = read_object.data.result[0]?.value[1]
-              setTargetOperations(read_result)
-            };
+        // //Fetches data`
+        // useEffect(() => {
+        //   if (animationCompleted) {
+        //     const fetcher = async () => {
+        //       let read = await fetch('http://localhost:9090/api/v1/query?query=rabbitmq_io_read_ops_total')
+        //       const read_object = await read.json()
+        //       let read_result = read_object.data.result[0]?.value[1]
+        //       setTargetOperations(read_result)
+        //     };
       
-            const intervalId = setInterval(fetcher, 1000)
-            return () => clearInterval(intervalId)
-          }
-}, [animationCompleted]);
+//             const intervalId = setInterval(fetcher, 1000)
+//             return () => clearInterval(intervalId)
+//           }
+// }, [animationCompleted]);
 
 const RADIAN = Math.PI / 180;
 const data = [
@@ -102,7 +102,7 @@ const needle = (value, data, cx, cy, iR, oR, color) => {
   const sin = Math.sin(-RADIAN * ang);
   const cos = Math.cos(-RADIAN * ang);
   const r = 5;
-  const x0 = cx + 5;
+  
   const y0 = cy + 5;
   const xba = x0 + r * sin;
   const yba = y0 - r * cos;

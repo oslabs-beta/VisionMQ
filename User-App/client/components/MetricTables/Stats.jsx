@@ -45,7 +45,7 @@ const getRate = (prev, current) => {
 
 let intervalId;
 
-useEffect(() => {
+/* useEffect(() => {
   if(runProm)
   {
   intervalId = setInterval(async () => {
@@ -98,12 +98,13 @@ useEffect(() => {
     }
   }, 1000);
 }
+
   return () => {
     clearInterval(intervalId);
   };
 }, [selected, queueINFO, runProm]);
 
-
+*/ 
   ////////
 
 
